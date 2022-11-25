@@ -10,7 +10,7 @@ def index(request):
     })
 
 
-def entry(request, entry):
+def displayEntry(request, entry):
 
     if util.get_entry(entry):
         return HttpResponse(f"Hello, {entry}!")
