@@ -30,7 +30,11 @@ def displayEntry(request, entry):
     print(lower)
 
 
-
+    if entry in lower:
+        print("Entry is in the list")
+        test = lower.index(entry)
+        print(test)
+        print(entries[test])
 
     # for entry in entries:
     #     print(entry)
