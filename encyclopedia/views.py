@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 
 from . import util
@@ -8,3 +9,10 @@ def index(request):
         "entries": util.list_entries()
     })
 
+
+def entry(request, entry):
+
+    if util.get_entry(entry):
+        return HttpResponse(f"Hello, {entry}!")
+    else:
+        return HttpResponse(f"Not in the list!")
