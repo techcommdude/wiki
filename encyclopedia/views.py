@@ -12,7 +12,14 @@ def index(request):
 
 def displayEntry(request, entry):
 
+    # if util.get_entry(entry):
+    #     return HttpResponse(f"Hello, {entry}!")
+    # else:
+    #     return HttpResponse(f"Not in the list!")
+
     if util.get_entry(entry):
-        return HttpResponse(f"Hello, {entry}!")
+        return render(request, "encyclopedia/entry.html", {
+            "entry": entry.capitalize()
+        })
     else:
         return HttpResponse(f"Not in the list!")
