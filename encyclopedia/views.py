@@ -22,4 +22,4 @@ def displayEntry(request, entry):
             "entry": entry.capitalize()
         })
     else:
-        return HttpResponse(f"Not in the list!")
+        return HttpResponse(f"Error, " + entry + " is not in the wiki!")
