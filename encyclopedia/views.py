@@ -25,13 +25,12 @@ def displayEntry(request, entry):
         test = lower.index(entry)
         print(test)
         print(entries[test])
-
-    if util.get_entry(entry):
+        formatted = entries[test]
 
         entryContent = util.get_entry(entry)
 
         return render(request, "encyclopedia/entry.html", {
-            "entry": entry
+            "entry": formatted
         })
     else:
         return HttpResponse(f"Error, " + entry + " is not in the wiki!")
