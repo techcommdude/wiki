@@ -24,11 +24,13 @@ def displayEntry(request, entry):
     entries = util.list_entries()
     print(entries)
 
-    lower = []
-    lower = entries
-    for i in range(len(lower)):
-       lower[i] = lower[i].lower()
+
+    a = (map(lambda x: x.lower(), entries))
+    lower = list(a)
     print(lower)
+
+
+
 
     # for entry in entries:
     #     print(entry)
