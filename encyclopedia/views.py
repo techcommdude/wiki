@@ -13,6 +13,7 @@ def index(request):
 def displayEntry(request, entry):
 
     if util.get_entry(entry):
+        entryContent = entry
         return render(request, "encyclopedia/entry.html", {
             "entry": entry.capitalize()
         })
