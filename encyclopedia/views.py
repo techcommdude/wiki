@@ -10,7 +10,7 @@ def index(request):
     })
 
 
-def displayEntry(request, entry):
+def displayEntry(request, displayEntry):
 
     entries = []
     entries = util.list_entries()
@@ -20,21 +20,21 @@ def displayEntry(request, entry):
     lower = list(a)
     print(lower)
 
-    if entry in lower:
+    if displayEntry in lower:
         print("Entry is in the list")
-        test = lower.index(entry)
+        test = lower.index(displayEntry)
         print(test)
         print(entries[test])
         formatted = entries[test]
 
-        entryContent = util.get_entry(entry)
+        entryContent = util.get_entry(displayEntry)
 
         return render(request, "encyclopedia/entry.html", {
-            "entry": formatted
+            "displayEntry": formatted
         })
     else:
         # return HttpResponse(f"Error, " + entry + " is not in the wiki!"
 
         return render(request, "encyclopedia/error.html", {
-            "entry": entry
+            "displayEntry": displayEntry
         })
