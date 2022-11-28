@@ -16,8 +16,9 @@ def displayEntry(request, displayEntry):
     entries = util.list_entries()
     print(entries)
 
-    # displayEntry = "css"
 
+
+    #Use this to retrieve the entry to display.  Put it in a function?
     test = util.get_entry(displayEntry)
     if test != None:
         print("Not in the wiki")
