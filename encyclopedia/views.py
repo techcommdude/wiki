@@ -13,10 +13,6 @@ def index(request):
 
 def displayEntry(request, displayEntry):
 
-    # entries = []
-    # entries = util.list_entries()
-    # print(entries)
-
     #Use this to retrieve the entry to display.  Put it in a function?
     entryContents = util.get_entry(displayEntry)
 
@@ -24,9 +20,6 @@ def displayEntry(request, displayEntry):
     if entryContents != None:
 
         x = re.findall(displayEntry, entryContents, re.IGNORECASE)
-
-        #If the list returned is not empty, print the first one.
-        # print(x[0])
 
         return render(request, "encyclopedia/entry.html", {
             "displayEntry": x[0]
