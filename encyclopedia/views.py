@@ -42,7 +42,7 @@ def displayEntry(request, displayEntry):
         x = re.findall(displayEntry, test, re.IGNORECASE)
 
         #If the list returned is not empty, print the first one.
-        print(x)
+        print(x[0])
     else:
         print("Not found")
 
