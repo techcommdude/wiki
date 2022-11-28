@@ -8,9 +8,9 @@
 
 <h2>{{ displayEntry }}</h2>
 
-<form action="" method="post">
+<form method="post">
     {% csrf_token %}
-    <textarea name="" id="" cols="10" rows="10">{{ entryContents }}</textarea>
+    {{ form }}
     <input type="submit" value="Save">
 </form>
 

@@ -14,16 +14,22 @@ def index(request):
 
 class entryForm(forms.Form):
     #what is the point of this?
-    existingEntry = forms.Textarea()
+
+    # existingEntry = forms.Textarea(attrs={'rows':3, 'cols':5})
+
+    existingEntry = forms.CharField(widget=forms.Textarea)
+
 
 
 def displayEntry(request, displayEntry):
 
-    form = entryForm()
+
 
     # Use this to retrieve the entry to display.  Put it in a function?
     entryContents = util.get_entry(displayEntry)
-    form.existingEntry = entryContents
+    form = entryForm(initial={'entryContents': entryContents})
+    # form.existingEntry = entryContents
+
 
 # Trying to display the initial value of the form.
 
@@ -42,7 +48,10 @@ def displayEntry(request, displayEntry):
 
 
 
-        return render(request, "encyclopedia/entry.html", {'form': form, "displayEntry": displayEntry, "entryContents": entryContents}
+        # return render(request, "encyclopedia/entry.html", {'form': form, "displayEntry": displayEntry, "entryContents": entryContents}
+        #               )
+
+        return render(request, "encyclopedia/entry.html", {'form': form, "displayEntry": displayEntry}
                       )
 
     # Need to handle request.post.
