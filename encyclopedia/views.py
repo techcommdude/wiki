@@ -13,6 +13,7 @@ def index(request):
 
 
 class entryForm(forms.Form):
+    #what is the point of this?
     existingEntry = forms.Textarea()
 
 
@@ -21,36 +22,24 @@ def displayEntry(request, displayEntry):
     # Use this to retrieve the entry to display.  Put it in a function?
     entryContents = util.get_entry(displayEntry)
 
-    # entryForm.existingEntry = entryContents
-    # existingEntry = forms.Textarea
-
-#Trying to display the initial value of the form.
-
+# Trying to display the initial value of the form.
 
     if entryContents != None:
 
         findInstance = re.findall(displayEntry, entryContents, re.IGNORECASE)
         displayEntry = findInstance[0]
 
-        # return render(request, "encyclopedia/entry.html", {
-        #     "displayEntry": findInstance[0]
-        # })
-
     else:
         return render(request, "encyclopedia/error.html", {
             "displayEntry": displayEntry
         })
 
-
-
-
-    if  request.method == 'GET':
+    if request.method == 'GET':
         print("Get")
 
         form = entryForm()
-        form.existingEntry = entryContents
 
-        # existingEntry = entryContents
+        return render(request, "encyclopedia/entry.html", {'form': form, "displayEntry": displayEntry, "entryContents": entryContents}
+                      )
 
-        return render(request, "encyclopedia/entry.html", {'form': form, "displayEntry": displayEntry}
-        )
+    # Need to handle request.post.
