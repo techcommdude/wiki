@@ -1,4 +1,5 @@
 import re
+from django import forms
 from django.http import HttpResponse
 from django.shortcuts import render
 
@@ -11,10 +12,33 @@ def index(request):
     })
 
 
+class entryForm(forms.Form):
+    existingEntry = forms.Textarea()
+
+
 def displayEntry(request, displayEntry):
 
     # Use this to retrieve the entry to display.  Put it in a function?
     entryContents = util.get_entry(displayEntry)
+
+    # entryForm.existingEntry = entryContents
+    # existingEntry = forms.Textarea
+
+#Trying to display the initial value of the form.
+
+    if  request.method == 'GET':
+        print("Get")
+
+        form = entryForm()
+        form.existingEntry = entryContents
+
+        # existingEntry = entryContents
+
+        return render(request, "encyclopedia/entry.html", {'form': form}
+        )
+
+
+
 
     if entryContents != None:
 
