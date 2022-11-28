@@ -1,3 +1,4 @@
+import re
 from django.http import HttpResponse
 from django.shortcuts import render
 
@@ -16,10 +17,39 @@ def displayEntry(request, displayEntry):
     entries = util.list_entries()
     print(entries)
 
+    # matches = []
+    # for match in entries:
+    #     if displayEntry in match:
+    #         matches.append(match)
+
+    # print(matches)
+
 
 
     #Use this to retrieve the entry to display.  Put it in a function?
     test = util.get_entry(displayEntry)
+
+    # x = re.findall("[a-s]", test, re.IGNORECASE)
+    # print(x)
+
+    # x = re.search(displayEntry, test, re.IGNORECASE)
+    # print(x)
+
+    #if test returns None, do not do this search since it leads to error.
+
+    if test != None:
+
+        x = re.findall(displayEntry, test, re.IGNORECASE)
+
+        #If the list returned is not empty, print the first one.
+        print(x)
+    else:
+        print("Not found")
+
+
+
+
+
     if test != None:
         print("Not in the wiki")
 
