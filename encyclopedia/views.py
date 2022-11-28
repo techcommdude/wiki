@@ -19,8 +19,11 @@ class entryForm(forms.Form):
 
 def displayEntry(request, displayEntry):
 
+    form = entryForm()
+
     # Use this to retrieve the entry to display.  Put it in a function?
     entryContents = util.get_entry(displayEntry)
+    form.existingEntry = entryContents
 
 # Trying to display the initial value of the form.
 
@@ -37,7 +40,7 @@ def displayEntry(request, displayEntry):
     if request.method == 'GET':
         print("Get")
 
-        form = entryForm()
+
 
         return render(request, "encyclopedia/entry.html", {'form': form, "displayEntry": displayEntry, "entryContents": entryContents}
                       )

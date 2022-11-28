@@ -10,8 +10,8 @@
 
 <form action="" method="post">
     {% csrf_token %}
-  <textarea name="" id="" cols="10" rows="10"></textarea>
+    <textarea name="" id="" cols="10" rows="10">{{ entryContents }}</textarea>
     <input type="submit" value="Save">
-  </form>
+</form>
 
 {% endblock %}
