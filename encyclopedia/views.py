@@ -27,50 +27,29 @@ def displayEntry(request, displayEntry):
 
 
     #Use this to retrieve the entry to display.  Put it in a function?
-    test = util.get_entry(displayEntry)
+    entryContents = util.get_entry(displayEntry)
 
-    # x = re.findall("[a-s]", test, re.IGNORECASE)
+    # x = re.findall("[a-s]", entryContents, re.IGNORECASE)
     # print(x)
 
-    # x = re.search(displayEntry, test, re.IGNORECASE)
+    # x = re.search(displayEntry, entryContents, re.IGNORECASE)
     # print(x)
 
-    #if test returns None, do not do this search since it leads to error.
+    #if entryContents returns None, do not do this search since it leads to error.
 
-    if test != None:
+    if entryContents != None:
 
-        x = re.findall(displayEntry, test, re.IGNORECASE)
+        x = re.findall(displayEntry, entryContents, re.IGNORECASE)
 
         #If the list returned is not empty, print the first one.
         print(x[0])
-    else:
-        print("Not found")
-
-
-
-
-
-    if test != None:
-        print("Not in the wiki")
-
-    a = (map(lambda x: x.lower(), entries))
-    lower = list(a)
-    print(lower)
-
-    if displayEntry in lower:
-        print("Entry is in the list")
-        test = lower.index(displayEntry)
-        print(test)
-        print(entries[test])
-        formatted = entries[test]
-
-        entryContent = util.get_entry(displayEntry)
 
         return render(request, "encyclopedia/entry.html", {
-            "displayEntry": formatted
+            "displayEntry": x[0]
         })
-    else:
 
+
+    else:
         return render(request, "encyclopedia/error.html", {
-            "displayEntry": displayEntry
+        "displayEntry": displayEntry
         })
