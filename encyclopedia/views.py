@@ -26,6 +26,24 @@ def displayEntry(request, displayEntry):
 
 #Trying to display the initial value of the form.
 
+
+    if entryContents != None:
+
+        findInstance = re.findall(displayEntry, entryContents, re.IGNORECASE)
+        displayEntry = findInstance[0]
+
+        # return render(request, "encyclopedia/entry.html", {
+        #     "displayEntry": findInstance[0]
+        # })
+
+    else:
+        return render(request, "encyclopedia/error.html", {
+            "displayEntry": displayEntry
+        })
+
+
+
+
     if  request.method == 'GET':
         print("Get")
 
@@ -34,21 +52,5 @@ def displayEntry(request, displayEntry):
 
         # existingEntry = entryContents
 
-        return render(request, "encyclopedia/entry.html", {'form': form}
+        return render(request, "encyclopedia/entry.html", {'form': form, "displayEntry": displayEntry}
         )
-
-
-
-
-    if entryContents != None:
-
-        findInstance = re.findall(displayEntry, entryContents, re.IGNORECASE)
-
-        return render(request, "encyclopedia/entry.html", {
-            "displayEntry": findInstance[0]
-        })
-
-    else:
-        return render(request, "encyclopedia/error.html", {
-            "displayEntry": displayEntry
-        })
