@@ -33,7 +33,6 @@ def displayEntry(request, displayEntry):
             "displayEntry": formatted
         })
     else:
-        # return HttpResponse(f"Error, " + entry + " is not in the wiki!"
 
         return render(request, "encyclopedia/error.html", {
             "displayEntry": displayEntry

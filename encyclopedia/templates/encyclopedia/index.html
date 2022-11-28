@@ -9,7 +9,7 @@ Encyclopedia
 
 <ul>
     {% for displayEntry in entries %}
-    <li><a href="{% url 'entries:index' %}">{{ displayEntry }}</a></li>
+    <li><a href="{% url 'entries:index' %}{{displayEntry}}">{{ displayEntry }}</a></li>
     {% endfor %}
 </ul>
 
