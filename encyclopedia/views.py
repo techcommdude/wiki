@@ -18,10 +18,10 @@ def displayEntry(request, displayEntry):
 
     if entryContents != None:
 
-        x = re.findall(displayEntry, entryContents, re.IGNORECASE)
+        findInstance = re.findall(displayEntry, entryContents, re.IGNORECASE)
 
         return render(request, "encyclopedia/entry.html", {
-            "displayEntry": x[0]
+            "displayEntry": findInstance[0]
         })
 
     else:
