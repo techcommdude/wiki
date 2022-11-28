@@ -13,9 +13,8 @@ def index(request):
 
 def displayEntry(request, displayEntry):
 
-    #Use this to retrieve the entry to display.  Put it in a function?
+    # Use this to retrieve the entry to display.  Put it in a function?
     entryContents = util.get_entry(displayEntry)
-
 
     if entryContents != None:
 
@@ -25,8 +24,7 @@ def displayEntry(request, displayEntry):
             "displayEntry": x[0]
         })
 
-
     else:
         return render(request, "encyclopedia/error.html", {
-        "displayEntry": displayEntry
+            "displayEntry": displayEntry
         })
