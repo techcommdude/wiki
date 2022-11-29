@@ -62,7 +62,7 @@ def editPage(request, title):
         # return render(request, "encyclopedia/entry.html", {'form': form, "title": title, "entryContents": entryContents}
         #               )
 
-        return render(request, "encyclopedia/entry.html", {'form': form, "title": title, "entryContents": entryContents}
+        return render(request, "encyclopedia/entry.html", {'form': form, "title": title}
                       )
 
     # Need to handle request.post.
