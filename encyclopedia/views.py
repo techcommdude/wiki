@@ -32,10 +32,18 @@ class EditPageForm(forms.Form):
 
 def newPage (request):
     form = NewPageForm()
+    # return HttpResponse("New Page!")
+    return render(request, "encyclopedia/new.html", {'form': form}
+                      )
+
+
+def randomPage (request):
+    form = RandomForm()
+    return HttpResponse("Random Page!")
+
 
 
 def editPage(request, title):
-
 
     if request.method == 'GET':
         print("Got a Get!")
