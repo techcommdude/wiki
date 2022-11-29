@@ -1,4 +1,5 @@
 import re
+from markdown2 import Markdown
 from django import forms
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -13,10 +14,6 @@ def index(request):
 
 
 class entryForm(forms.Form):
-    #what is the point of this?
-
-    # existingEntry = forms.Textarea(attrs={'rows':3, 'cols':5})
-
     existingEntry = forms.CharField(widget=forms.Textarea)
 
 class NewPageForm(forms.Form):
@@ -25,6 +22,7 @@ class NewPageForm(forms.Form):
 
 class EditPageForm(forms.Form):
     # title = forms.CharField(widget=forms.HiddenInput)
+    title = forms.CharField(label='')
     content = forms.CharField(widget=forms.Textarea, label='')
 
 
@@ -33,11 +31,17 @@ def editPage(request, title):
 
 
     if request.method == 'GET':
-        print("Get")
+        print("Got a Get!")
 
         # Use this to retrieve the entry to display.  Put it in a function?
         entryContents = util.get_entry(title)
-        form = EditPageForm(initial={'content': entryContents})
+
+        #Need to return the HTML here.
+        markdowner = Markdown()
+        page_html = markdowner.convert(entryContents)
+
+
+        form = EditPageForm(initial={'content': page_html, 'title': title})
         print(form)
 
 
@@ -47,16 +51,14 @@ def editPage(request, title):
 
             findInstance = re.findall(title, entryContents, re.IGNORECASE)
             title = findInstance[0]
+            form = EditPageForm(initial={'content': page_html, 'title': title})
+            return render(request, "encyclopedia/entry.html", {'form': form, "title": title}
+                      )
 
         else:
             return render(request, "encyclopedia/error.html", {
                 "title": title
             })
-
-        return render(request, "encyclopedia/entry.html", {'form': form, "title": title}
-                      )
-
-    # Need to handle request.post.
 
     if request.method == 'POST':
         print("got a POST")

@@ -6,11 +6,15 @@
 
 {% block body %}
 
+
+
 <h2>{{ title }}</h2>
 
 <form action="" method="post">
     {% csrf_token %}
-    {{ form }}
+    <div>
+        {{ form|safe|escape }}
+      </div>
     <input type="submit" value="Save">
 </form>
 
