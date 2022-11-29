@@ -19,28 +19,36 @@ class entryForm(forms.Form):
 
     existingEntry = forms.CharField(widget=forms.Textarea)
 
+class NewPageForm(forms.Form):
+    title = forms.CharField()
+    content = forms.CharField(widget=forms.Textarea)
+
+class EditPageForm(forms.Form):
+    title = forms.CharField(widget=forms.HiddenInput)
+    content = forms.CharField(widget=forms.Textarea)
 
 
-def displayEntry(request, displayEntry):
 
+
+
+def editPage(request, title):
 
 
     # Use this to retrieve the entry to display.  Put it in a function?
-    entryContents = util.get_entry(displayEntry)
-    form = entryForm(initial={'entryContents': entryContents})
-    # form.existingEntry = entryContents
+    entryContents = util.get_entry(title)
+    form = EditPageForm()
 
 
 # Trying to display the initial value of the form.
 
     if entryContents != None:
 
-        findInstance = re.findall(displayEntry, entryContents, re.IGNORECASE)
-        displayEntry = findInstance[0]
+        findInstance = re.findall(title, entryContents, re.IGNORECASE)
+        title = findInstance[0]
 
     else:
         return render(request, "encyclopedia/error.html", {
-            "displayEntry": displayEntry
+            "title": title
         })
 
     if request.method == 'GET':
@@ -48,10 +56,10 @@ def displayEntry(request, displayEntry):
 
 
 
-        # return render(request, "encyclopedia/entry.html", {'form': form, "displayEntry": displayEntry, "entryContents": entryContents}
+        # return render(request, "encyclopedia/entry.html", {'form': form, "title": title, "entryContents": entryContents}
         #               )
 
-        return render(request, "encyclopedia/entry.html", {'form': form, "displayEntry": displayEntry}
+        return render(request, "encyclopedia/entry.html", {'form': form, "title": title}
                       )
 
     # Need to handle request.post.

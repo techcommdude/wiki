@@ -1,12 +1,12 @@
 {% extends "encyclopedia/layout.html" %}
 
 {% block title %}
-{{ displayEntry }}
+{{ title }}
 {% endblock %}
 
 {% block body %}
 
-<h2>{{ displayEntry }}</h2>
+<h2>{{ title }}</h2>
 
 <form method="post">
     {% csrf_token %}
