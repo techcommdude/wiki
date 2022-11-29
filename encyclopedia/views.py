@@ -29,8 +29,6 @@ class EditPageForm(forms.Form):
 
 
 
-
-
 def editPage(request, title):
 
 
@@ -59,3 +57,7 @@ def editPage(request, title):
                       )
 
     # Need to handle request.post.
+
+    if request.method == 'POST':
+        print("got a POST")
+        return HttpResponse("Got a POST!")
