@@ -34,32 +34,35 @@ class EditPageForm(forms.Form):
 def editPage(request, title):
 
 
-    # Use this to retrieve the entry to display.  Put it in a function?
-    entryContents = util.get_entry(title)
-    form = EditPageForm()
-
-
-# Trying to display the initial value of the form.
-
-    if entryContents != None:
-
-        findInstance = re.findall(title, entryContents, re.IGNORECASE)
-        title = findInstance[0]
-
-    else:
-        return render(request, "encyclopedia/error.html", {
-            "title": title
-        })
-
     if request.method == 'GET':
         print("Get")
+
+        # Use this to retrieve the entry to display.  Put it in a function?
+        entryContents = util.get_entry(title)
+        form = EditPageForm(initial={'content': entryContents})
+        print(form)
+
+
+    # Trying to display the initial value of the form.
+
+        if entryContents != None:
+
+            findInstance = re.findall(title, entryContents, re.IGNORECASE)
+            title = findInstance[0]
+
+        else:
+            return render(request, "encyclopedia/error.html", {
+                "title": title
+            })
+
+
 
 
 
         # return render(request, "encyclopedia/entry.html", {'form': form, "title": title, "entryContents": entryContents}
         #               )
 
-        return render(request, "encyclopedia/entry.html", {'form': form, "title": title}
+        return render(request, "encyclopedia/entry.html", {'form': form, "title": title, "entryContents": entryContents}
                       )
 
     # Need to handle request.post.
