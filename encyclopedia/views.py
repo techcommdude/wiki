@@ -12,19 +12,26 @@ def index(request):
         "entries": util.list_entries()
     })
 
-
 class entryForm(forms.Form):
+    title = forms.CharField(label='')
     existingEntry = forms.CharField(widget=forms.Textarea)
 
+class RandomForm(forms.Form):
+    title = forms.CharField(label='')
+    content = forms.CharField(widget=forms.Textarea)
+
 class NewPageForm(forms.Form):
-    # title = forms.CharField()
-    content = forms.CharField(widget=forms.Textarea, label='')
+    new_title = forms.CharField(label='')
+    new_content = forms.CharField(widget=forms.Textarea, label='')
 
 class EditPageForm(forms.Form):
     # title = forms.CharField(widget=forms.HiddenInput)
     title = forms.CharField(label='')
     content = forms.CharField(widget=forms.Textarea, label='')
 
+
+def newPage (request):
+    form = NewPageForm()
 
 
 def editPage(request, title):
