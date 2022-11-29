@@ -37,12 +37,13 @@ def editPage(request, title):
         entryContents = util.get_entry(title)
 
         #Need to return the HTML here.
-        markdowner = Markdown()
-        page_html = markdowner.convert(entryContents)
+        if entryContents != None:
+            markdowner = Markdown()
+            page_html = markdowner.convert(entryContents)
 
 
-        form = EditPageForm(initial={'content': page_html, 'title': title})
-        print(form)
+            form = EditPageForm(initial={'content': page_html, 'title': title})
+            print(form)
 
 
     # Trying to display the initial value of the form.
