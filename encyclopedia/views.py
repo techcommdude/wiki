@@ -20,12 +20,12 @@ class entryForm(forms.Form):
     existingEntry = forms.CharField(widget=forms.Textarea)
 
 class NewPageForm(forms.Form):
-    title = forms.CharField()
-    content = forms.CharField(widget=forms.Textarea)
+    # title = forms.CharField()
+    content = forms.CharField(widget=forms.Textarea, label='')
 
 class EditPageForm(forms.Form):
-    title = forms.CharField(widget=forms.HiddenInput)
-    content = forms.CharField(widget=forms.Textarea)
+    # title = forms.CharField(widget=forms.HiddenInput)
+    content = forms.CharField(widget=forms.Textarea, label='')
 
 
 
@@ -54,13 +54,6 @@ def editPage(request, title):
             return render(request, "encyclopedia/error.html", {
                 "title": title
             })
-
-
-
-
-
-        # return render(request, "encyclopedia/entry.html", {'form': form, "title": title, "entryContents": entryContents}
-        #               )
 
         return render(request, "encyclopedia/entry.html", {'form': form, "title": title}
                       )
