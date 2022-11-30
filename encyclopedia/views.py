@@ -57,10 +57,15 @@ def randomPage(request):
 
 def displayPage(request, title):
     if request.method == 'GET':
-        form = entryForm(initial={'content': page_html, 'title': title})
+        form = entryForm()
+
+        testContent = "<h2> Test Content </h2>"
+
+        return render(request, "encyclopedia/existing_entry.html", {'form': form, "testContent": testContent, "title": title}
+                          )
 
 
-        return HttpResponse("Got a GET!")
+        # return HttpResponse("Got a GET!")
 
 
 def editPage(request, title):
