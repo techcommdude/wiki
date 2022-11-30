@@ -57,7 +57,7 @@ def randomPage(request):
 
 def displayPage(request, title):
     if request.method == 'GET':
-        form = entryForm()
+        # form = entryForm()
 
 
 
@@ -68,7 +68,9 @@ def displayPage(request, title):
 
 
 
-        return render(request, "encyclopedia/existing_entry.html", {'form': form, "testContent": testContent, "title": title}
+        # return render(request, "encyclopedia/existing_entry.html", {'form': form, "testContent": testContent, "title": title}
+        #                   )
+        return render(request, "encyclopedia/existing_entry.html", {"testContent": testContent, "title": title}
                           )
 
 
@@ -93,8 +95,8 @@ def returnTitle_Markdown (title):
 
 def editPage(request, title):
 
-    if request.method == 'GET':
-        print("Got a Get!")
+    if request.method == 'POST':
+        print("Got a Post!")
 
         # Use this to retrieve the entry to display.  Put it in a function?
         entryContents = util.get_entry(title)
@@ -122,6 +124,6 @@ def editPage(request, title):
                 "title": title
             })
 
-    if request.method == 'POST':
+    if request.method == 'Get':
         print("got a POST")
-        return HttpResponse("Got a POST from the editPage view!")
+        return HttpResponse("Got a Get from the editPage view!")

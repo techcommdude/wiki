@@ -11,7 +11,7 @@
 
 <!-- {{ testContent|safe|escape}} -->
 
-<form action="{% url 'entries:editPage' title %}" method="get">
+<form action="{% url 'entries:editPage' title %}" method="post">
     {% csrf_token %}
 
     <!-- {{ form|safe|escape }} -->
