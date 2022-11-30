@@ -101,4 +101,4 @@ def editPage(request, title):
 
     if request.method == 'POST':
         print("got a POST")
-        return HttpResponse("Got a POST!")
+        return HttpResponse("Got a POST from the editPage view!")
