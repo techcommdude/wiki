@@ -1,0 +1,20 @@
+{% extends "encyclopedia/layout.html" %}
+{% load static %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block body %}
+
+<h2>{{ title }}</h2>
+
+<form action="{% url 'entries:index' %}" method="post">
+    {% csrf_token %}
+
+    {{ form|safe|escape }}
+
+    <input type="submit" value="Edit">
+</form>
+
+{% endblock %}

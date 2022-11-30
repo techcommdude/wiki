@@ -44,7 +44,7 @@ def newPage(request):
                       )
 
     if request.method == "POST":
-        #check if the form is valid and save the entry if it does not exist.
+        # check if the form is valid and save the entry if it does not exist.
         return HttpResponse("Got a POST!")
 
 
@@ -54,10 +54,12 @@ def randomPage(request):
     form = RandomForm()
     return HttpResponse("Random Page!")
 
-def displayPage (request):
-    if request.method == 'GET':
-        return HttpResponse("Got a GET!")
 
+def displayPage(request):
+    if request.method == 'GET':
+        form = entryForm()
+
+        return HttpResponse("Got a GET!")
 
 
 def editPage(request, title):
@@ -68,7 +70,7 @@ def editPage(request, title):
         # Use this to retrieve the entry to display.  Put it in a function?
         entryContents = util.get_entry(title)
 
-        # Need to return the HTML here.
+        # This converts the Markdown to HTML and returns it.  Put it in a function?
         if entryContents != None:
             markdowner = Markdown()
             page_html = markdowner.convert(entryContents)
@@ -77,8 +79,11 @@ def editPage(request, title):
 
         if entryContents != None:
 
+            # Finds the title in the entry with the correct case.
             findInstance = re.findall(title, entryContents, re.IGNORECASE)
             title = findInstance[0]
+
+            # Initialize the form.
             form = EditPageForm(initial={'content': page_html, 'title': title})
             return render(request, "encyclopedia/edit.html", {'form': form, "title": title}
                           )
