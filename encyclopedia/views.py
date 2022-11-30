@@ -59,13 +59,36 @@ def displayPage(request, title):
     if request.method == 'GET':
         form = entryForm()
 
-        testContent = "<h2> Test Content </h2>"
+
+
+        #this returns the proper title and the HTML to display on the displayPage
+        test = returnTitle_Markdown(title)
+        print(test)
+        testContent = test[1]
+
+
 
         return render(request, "encyclopedia/existing_entry.html", {'form': form, "testContent": testContent, "title": title}
                           )
 
 
         # return HttpResponse("Got a GET!")
+
+def returnTitle_Markdown (title):
+
+    entryContents = util.get_entry(title)
+
+    if entryContents != None:
+
+        # Finds the title in the entry with the correct case.
+        findInstance = re.findall(title, entryContents, re.IGNORECASE)
+        newTitle = findInstance[0]
+
+        markdowner = Markdown()
+        page_html = markdowner.convert(entryContents)
+
+        return newTitle, page_html
+
 
 
 def editPage(request, title):
