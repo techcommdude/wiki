@@ -12,17 +12,21 @@ def index(request):
         "entries": util.list_entries()
     })
 
+
 class entryForm(forms.Form):
     title = forms.CharField(label='')
     existingEntry = forms.CharField(widget=forms.Textarea)
+
 
 class RandomForm(forms.Form):
     title = forms.CharField(label='')
     content = forms.CharField(widget=forms.Textarea)
 
+
 class NewPageForm(forms.Form):
     new_title = forms.CharField(label='')
     new_content = forms.CharField(widget=forms.Textarea, label='')
+
 
 class EditPageForm(forms.Form):
     # title = forms.CharField(widget=forms.HiddenInput)
@@ -30,17 +34,25 @@ class EditPageForm(forms.Form):
     content = forms.CharField(widget=forms.Textarea, label='')
 
 
-def newPage (request):
-    form = NewPageForm()
-    # return HttpResponse("New Page!")
-    return render(request, "encyclopedia/new.html", {'form': form}
+def newPage(request):
+
+    # Check if method is POST
+    if request.method == "GET":
+        form = NewPageForm()
+
+        return render(request, "encyclopedia/new.html", {'form': form}
                       )
 
+    if request.method == "POST":
+        #check if the form is valid and save the entry if it does not exist.
+        return HttpResponse("Got a POST!")
 
-def randomPage (request):
+
+def randomPage(request):
+    # Random Page: Clicking “Random Page” in the sidebar should take user to a random encyclopedia entry.
+    # Get the list of entries and randomly pick one and display it.
     form = RandomForm()
     return HttpResponse("Random Page!")
-
 
 
 def editPage(request, title):
@@ -51,7 +63,7 @@ def editPage(request, title):
         # Use this to retrieve the entry to display.  Put it in a function?
         entryContents = util.get_entry(title)
 
-        #Need to return the HTML here.
+        # Need to return the HTML here.
         if entryContents != None:
             markdowner = Markdown()
             page_html = markdowner.convert(entryContents)
@@ -64,7 +76,7 @@ def editPage(request, title):
             title = findInstance[0]
             form = EditPageForm(initial={'content': page_html, 'title': title})
             return render(request, "encyclopedia/entry.html", {'form': form, "title": title}
-                      )
+                          )
 
         else:
             return render(request, "encyclopedia/error.html", {

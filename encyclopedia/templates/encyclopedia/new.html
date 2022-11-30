@@ -6,7 +6,7 @@
 
 {% block body %}
 
-<form action="{% url 'entries:index' %}" method="post">
+<form action="{% url 'entries:newPage' %}" method="post">
     {% csrf_token %}
 
         {{ form }}
