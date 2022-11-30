@@ -75,7 +75,7 @@ def editPage(request, title):
             findInstance = re.findall(title, entryContents, re.IGNORECASE)
             title = findInstance[0]
             form = EditPageForm(initial={'content': page_html, 'title': title})
-            return render(request, "encyclopedia/entry.html", {'form': form, "title": title}
+            return render(request, "encyclopedia/edit.html", {'form': form, "title": title}
                           )
 
         else:

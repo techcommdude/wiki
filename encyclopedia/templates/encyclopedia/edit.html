@@ -12,7 +12,7 @@
 <form action="{% url 'entries:index' %}" method="post">
     {% csrf_token %}
 
-        {{ form|safe|escape }}
+    {{ form|safe|escape }}
 
     <input type="submit" value="Save">
 </form>
