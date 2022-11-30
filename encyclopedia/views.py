@@ -107,8 +107,10 @@ def returnProperTitle(title):
 
         return newTitle
 
-def searchResults (searchString):
-    return HttpResponse("On the search results page!")
+def searchResults (request):
+    if request.method == 'GET':
+
+        return HttpResponse("On the search results page!")
 
 
 
