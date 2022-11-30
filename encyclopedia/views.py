@@ -56,11 +56,6 @@ def editPage(request, title):
             markdowner = Markdown()
             page_html = markdowner.convert(entryContents)
 
-
-            form = EditPageForm(initial={'content': page_html, 'title': title})
-            print(form)
-
-
     # Trying to display the initial value of the form.
 
         if entryContents != None:
