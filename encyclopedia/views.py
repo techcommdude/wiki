@@ -107,6 +107,10 @@ def returnProperTitle(title):
 
         return newTitle
 
+def searchResults (searchString):
+    return HttpResponse("On the search results page!")
+
+
 
 def editPage(request, title):
 
