@@ -13,11 +13,6 @@ def index(request):
     })
 
 
-# class entryForm(forms.Form):
-#     title = forms.CharField(label='')
-#     existingEntry = forms.CharField(widget=forms.Textarea)
-
-
 class RandomForm(forms.Form):
     title = forms.CharField(label='')
     content = forms.CharField(widget=forms.Textarea)
@@ -40,8 +35,7 @@ def newPage(request):
     if request.method == "GET":
         form = NewPageForm()
 
-        return render(request, "encyclopedia/new.html", {'form': form}
-                      )
+        return render(request, "encyclopedia/new.html", {'form': form})
 
     if request.method == "POST":
         # check if the form is valid and save the entry if it does not exist.
@@ -82,12 +76,7 @@ def displayPage(request, title):
 def returnHTML(title):
 
     entryContents = util.get_entry(title)
-
     if entryContents != None:
-
-        # Finds the title in the entry with the correct case.
-        # findInstance = re.findall(title, entryContents, re.IGNORECASE)
-        # newTitle = findInstance[0]
 
         markdowner = Markdown()
         page_html = markdowner.convert(entryContents)
@@ -107,11 +96,11 @@ def returnProperTitle(title):
 
         return newTitle
 
-def searchResults (request):
+
+def searchResults(request):
     if request.method == 'GET':
 
         return HttpResponse("On the search results page!")
-
 
 
 def editPage(request, title):
@@ -122,11 +111,6 @@ def editPage(request, title):
         # Use this to retrieve the entry to display.  Put it in a function?
         entryContents = util.get_entry(title)
 
-        # This converts the Markdown to HTML and returns it.  Put it in a function?
-        # if entryContents != None:
-        #     markdowner = Markdown()
-        #     page_html = markdowner.convert(entryContents)
-
     # Trying to display the initial value of the form.
 
         if entryContents != None:
@@ -136,16 +120,12 @@ def editPage(request, title):
             title = findInstance[0]
 
             # Initialize the form.
-            form = EditPageForm(initial={'content': entryContents, 'title': title})
+            form = EditPageForm(
+                initial={'content': entryContents, 'title': title})
 
-            #render the page.
+            # render the page.
             return render(request, "encyclopedia/edit.html", {'form': form, "title": title}
                           )
-
-        # else:
-        #     return render(request, "encyclopedia/error.html", {
-        #         "title": title
-        #     })
 
     if request.method == 'Get':
         print("got a POST")
