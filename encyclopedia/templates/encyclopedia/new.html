@@ -6,7 +6,7 @@
 
 {% block body %}
 
-<form action="/wiki/new" method="post">
+<form action="{% url 'entries:index' %}" method="post">
     {% csrf_token %}
 
         {{ form }}
