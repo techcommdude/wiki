@@ -117,9 +117,9 @@ def editPage(request, title):
         entryContents = util.get_entry(title)
 
         # This converts the Markdown to HTML and returns it.  Put it in a function?
-        if entryContents != None:
-            markdowner = Markdown()
-            page_html = markdowner.convert(entryContents)
+        # if entryContents != None:
+        #     markdowner = Markdown()
+        #     page_html = markdowner.convert(entryContents)
 
     # Trying to display the initial value of the form.
 
@@ -130,7 +130,9 @@ def editPage(request, title):
             title = findInstance[0]
 
             # Initialize the form.
-            form = EditPageForm(initial={'content': page_html, 'title': title})
+            form = EditPageForm(initial={'content': entryContents, 'title': title})
+
+            #render the page.
             return render(request, "encyclopedia/edit.html", {'form': form, "title": title}
                           )
 
