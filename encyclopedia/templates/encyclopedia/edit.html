@@ -2,19 +2,19 @@
 {% load static %}
 
 {% block title %}
-{{ title }}
+<!-- {{ title }} -->
 {% endblock %}
 
 {% block body %}
 
-<h2>{{ title }}</h2>
+<!-- <h2>{{ title }}</h2> -->
 
 <form action="{% url 'entries:index' %}" method="post">
     {% csrf_token %}
 
     {{ form|safe|escape }}
 
-    <input type="submit" value="Save">
+    <input class="submit" type="submit" value="Save">
 </form>
 
 {% endblock %}
