@@ -11,11 +11,11 @@
 
 <!-- {{ testContent|safe|escape}} -->
 
-<form action="{% url 'entries:editPage' title %}" method="post">
+<form action="{% url 'entries:editPage' titleDisplay %}" method="post">
     {% csrf_token %}
 
     <!-- {{ form|safe|escape }} -->
-    {{ testContent|safe|escape}}
+    {{ htmlContent|safe|escape}}
 
     <input type="submit" value="Edit">
 </form>

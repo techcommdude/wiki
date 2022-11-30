@@ -13,9 +13,9 @@ def index(request):
     })
 
 
-class entryForm(forms.Form):
-    title = forms.CharField(label='')
-    existingEntry = forms.CharField(widget=forms.Textarea)
+# class entryForm(forms.Form):
+#     title = forms.CharField(label='')
+#     existingEntry = forms.CharField(widget=forms.Textarea)
 
 
 class RandomForm(forms.Form):
@@ -59,24 +59,43 @@ def displayPage(request, title):
     if request.method == 'GET':
         # form = entryForm()
 
+        # this returns the proper title and the HTML to display on the displayPage
+        htmlContent = returnHTML(title)
+        titleDisplay = returnProperTitle(title)
+        print(titleDisplay)
+        print(htmlContent)
 
+        if htmlContent != None:
 
-        #this returns the proper title and the HTML to display on the displayPage
-        test = returnTitle_Markdown(title)
-        print(test)
-        testContent = test[1]
-
-
-
-        # return render(request, "encyclopedia/existing_entry.html", {'form': form, "testContent": testContent, "title": title}
-        #                   )
-        return render(request, "encyclopedia/existing_entry.html", {"testContent": testContent, "title": title}
+            # return render(request, "encyclopedia/existing_entry.html", {'form': form, "testContent": testContent, "title": title}
+            #                   )
+            return render(request, "encyclopedia/existing_entry.html", {"htmlContent": htmlContent, "titleDisplay": titleDisplay}
                           )
 
+        else:
+            # Issue an HTML alert here instead.
+            return render(request, "encyclopedia/error.html", {
+                "title": title
+            })
 
-        # return HttpResponse("Got a GET!")
 
-def returnTitle_Markdown (title):
+def returnHTML(title):
+
+    entryContents = util.get_entry(title)
+
+    if entryContents != None:
+
+        # Finds the title in the entry with the correct case.
+        # findInstance = re.findall(title, entryContents, re.IGNORECASE)
+        # newTitle = findInstance[0]
+
+        markdowner = Markdown()
+        page_html = markdowner.convert(entryContents)
+
+        return page_html
+
+
+def returnProperTitle(title):
 
     entryContents = util.get_entry(title)
 
@@ -86,11 +105,7 @@ def returnTitle_Markdown (title):
         findInstance = re.findall(title, entryContents, re.IGNORECASE)
         newTitle = findInstance[0]
 
-        markdowner = Markdown()
-        page_html = markdowner.convert(entryContents)
-
-        return newTitle, page_html
-
+        return newTitle
 
 
 def editPage(request, title):
@@ -119,10 +134,10 @@ def editPage(request, title):
             return render(request, "encyclopedia/edit.html", {'form': form, "title": title}
                           )
 
-        else:
-            return render(request, "encyclopedia/error.html", {
-                "title": title
-            })
+        # else:
+        #     return render(request, "encyclopedia/error.html", {
+        #         "title": title
+        #     })
 
     if request.method == 'Get':
         print("got a POST")
