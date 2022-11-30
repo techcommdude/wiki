@@ -55,9 +55,10 @@ def randomPage(request):
     return HttpResponse("Random Page!")
 
 
-def displayPage(request):
+def displayPage(request, title):
     if request.method == 'GET':
-        form = entryForm()
+        form = entryForm(initial={'content': page_html, 'title': title})
+
 
         return HttpResponse("Got a GET!")
 

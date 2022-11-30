@@ -9,7 +9,7 @@
 
 <h2>{{ title }}</h2>
 
-<form action="{% url 'entries:index' %}" method="post">
+<form action="{% url 'entries:displayPage' %}" method="post">
     {% csrf_token %}
 
     {{ form|safe|escape }}
