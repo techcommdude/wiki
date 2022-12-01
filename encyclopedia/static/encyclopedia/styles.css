@@ -12,13 +12,20 @@ h1 {
     padding-top: 20px;
 }
 
+button {
+    margin: 10px;
+}
+
 .submit {
     display: flex;
+    margin: 10px;
 }
 
 textarea {
     height: 40vh;
     width: 65%;
+    margin: 10px;
+    margin-left: 0px;
     display: flex;
 }
 
