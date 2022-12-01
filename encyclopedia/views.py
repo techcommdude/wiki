@@ -150,8 +150,16 @@ def editPage(request, title):
         if form.is_valid():
             content = form.cleaned_data['content']
             title = form.cleaned_data['title']
+            # content = content.replace('\n',' ')
+            # content = content.replace('\r',' ')
+            # content = "# " + title + content
             print(content)
+            content = "# " + title + " \n" + content
+            content = content.replace('\r','')
             print(title)
+            print(content)
+
+            #Need to strip out the
 
             util.save_entry(title, content)
 
