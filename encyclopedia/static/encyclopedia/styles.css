@@ -21,6 +21,11 @@ button {
     background: lightgrey;
 }
 
+label {
+
+    display: flex;
+}
+
 .submit {
     display: flex;
     margin: 0px;

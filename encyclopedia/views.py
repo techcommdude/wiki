@@ -20,8 +20,8 @@ class RandomForm(forms.Form):
 
 
 class NewPageForm(forms.Form):
-    new_title = forms.CharField(label='')
-    new_content = forms.CharField(widget=forms.Textarea, label='')
+    new_title = forms.CharField(label='Topic title:')
+    new_content = forms.CharField(widget=forms.Textarea, label='Topic content:')
 
 
 class EditPageForm(forms.Form):
