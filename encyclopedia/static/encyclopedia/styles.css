@@ -16,6 +16,11 @@ button {
     margin: 10px;
 }
 
+#id_title {
+
+    background: lightgrey;
+}
+
 .submit {
     display: flex;
     margin: 0px;
