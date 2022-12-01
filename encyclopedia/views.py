@@ -104,26 +104,26 @@ def searchResults(request):
 
 def editPage(request, title):
 
+    entryContents = util.get_entry(title)
+
+    # Use this to retrieve the entry to display.  Put it in a function?
+    # entryContents = util.get_entry(title)
+    stripString = "# " + title + "\n\n"
+    print(stripString)
+
+    test2 = "# " + title
+    entryContents.strip()
+    print(entryContents)
+    t = entryContents.removeprefix(test2)
+    print(t)
+    a = t.lstrip()
+    # this successfully strips out the title and newline characters.
+    print(a)
+
     if request.method == 'POST':
         print("Got a Post!")
 
-        # Use this to retrieve the entry to display.  Put it in a function?
-        entryContents = util.get_entry(title)
-        stripString = "# " + title + "\n\n"
-        print(stripString)
-
-        test2 = "# " + title
-        entryContents.strip()
-        print(entryContents)
-        t = entryContents.removeprefix(test2)
-        print(t)
-        a = t.lstrip()
-        #this successfully strips out the title and newline characters.
-        print(a)
-
-
     # Trying to display the initial value of the form.
-
         if entryContents != None:
 
             # Finds the title in the entry with the correct case.
