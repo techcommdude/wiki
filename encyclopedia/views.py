@@ -1,4 +1,5 @@
 import re
+from django.forms import formset_factory
 from markdown2 import Markdown
 from django import forms
 from django.http import HttpResponse
@@ -24,7 +25,8 @@ class NewPageForm(forms.Form):
 
 
 class EditPageForm(forms.Form):
-    title = forms.CharField(label='', disabled=True)
+    title = forms.CharField(label='')
+    # title = forms.CharField(label='', disabled=True)
     content = forms.CharField(widget=forms.Textarea, label='')
 
 
@@ -143,4 +145,18 @@ def editPage(request, title):
                     )
 
     if request.method == 'POST':
-        return HttpResponse("Success!  Need to capture the content in the form.")
+
+        form = EditPageForm(request.POST)
+        print(form.as_p())
+        print("End of errors!")
+        if form.is_valid():
+            content = form.cleaned_data['content']
+            title = form.cleaned_data['title']
+            print(content)
+            print(title)
+
+            return HttpResponse("Success!  Need to capture the content in the form.")
+        else:
+            #re-render invalid form with same information.
+            return render(request, "encyclopedia/edit.html", {'form': form, "title": title}
+                    )

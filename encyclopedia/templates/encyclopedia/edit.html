@@ -9,10 +9,14 @@
 
 <!-- <h2>{{ title }}</h2> -->
 
-<form action="{% url 'entries:editPage' title %}" method="post">
+<form action="{% url 'entries:editPage' title %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
 
-    {{ form|safe|escape }}
+    {{ form|safe }}
+    {{ form.non_field_errors }}
+    {{ form.body.errors }}
+    {{ form.body }}
+
 
     <input class="submit" type="submit" value="Save">
 </form>
