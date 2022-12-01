@@ -153,7 +153,9 @@ def editPage(request, title):
             print(content)
             print(title)
 
-            return HttpResponse("Success!  Need to capture the content in the form.")
+            util.save_entry(title, content)
+
+            return HttpResponse("The content has been saved!")
         else:
             # re-render invalid form with same information.
             return render(request, "encyclopedia/edit.html", {'form': form, "title": title}
