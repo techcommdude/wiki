@@ -24,7 +24,6 @@ class NewPageForm(forms.Form):
 
 
 class EditPageForm(forms.Form):
-    # title = forms.CharField(widget=forms.HiddenInput)
     title = forms.CharField(label='', disabled=True)
     content = forms.CharField(widget=forms.Textarea, label='')
 
