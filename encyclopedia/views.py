@@ -129,6 +129,6 @@ def editPage(request, title):
 
     if request.method == 'Get':
 
-        #this may not be required.
+        # this may not be required.
         print("got a POST")
         return HttpResponse("Got a Get from the editPage view!")
