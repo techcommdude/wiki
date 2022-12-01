@@ -106,21 +106,6 @@ def editPage(request, title):
 
     entryContents = util.get_entry(title)
 
-    # Use this to retrieve the entry to display.  Put it in a function?
-    # entryContents = util.get_entry(title)
-    stripString = "# " + title + "\n\n"
-    print(stripString)
-
-    #prepare the body for inserting into the edit page.
-    test2 = "# " + title
-    entryContents.strip()
-    print(entryContents)
-    t = entryContents.removeprefix(test2)
-    print(t)
-    a = t.lstrip()
-    # this successfully strips out the title and newline characters.
-    print(a)
-
     # Trying to display the initial value of the form.
     if entryContents != None:
 
@@ -132,9 +117,24 @@ def editPage(request, title):
         form = EditPageForm(
             initial={'content': entryContents, 'title': title})
 
-        # render the page.
-        return render(request, "encyclopedia/edit.html", {'form': form, "title": title}
-                      )
+    # Use this to retrieve the entry to display.  Put it in a function?
+    # entryContents = util.get_entry(title)
+    stripString = "# " + title + "\n\n"
+    print(stripString)
+
+    # prepare the body for inserting into the edit page.
+    test2 = "# " + title
+    entryContents.strip()
+    print(entryContents)
+    t = entryContents.removeprefix(test2)
+    print(t)
+    a = t.lstrip()
+    # this successfully strips out the title and newline characters.
+    print(a)
+
+    # render the page.
+    return render(request, "encyclopedia/edit.html", {'form': form, "title": title}
+                  )
 
     if request.method == 'POST':
         print("Got a Post!")
