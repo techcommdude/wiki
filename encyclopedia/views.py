@@ -118,9 +118,7 @@ def editPage(request, title):
             findInstance = re.findall(title, entryContents, re.IGNORECASE)
             title = findInstance[0]
 
-            # Initialize the form with entry text that is stripped of extra characters.
-            form = EditPageForm(
-                initial={'content': entryContents, 'title': title})
+
 
         # Use this to retrieve the entry to display.  Put it in a function?
         # entryContents = util.get_entry(title)
@@ -136,6 +134,9 @@ def editPage(request, title):
         a = t.lstrip()
         # this successfully strips out the title and newline characters.
         print(a)
+
+        # Initialize the form with entry text that is stripped of extra characters.
+        form = EditPageForm(initial={'content': a, 'title': title})
 
         # render the page.
         return render(request, "encyclopedia/edit.html", {'form': form, "title": title}
