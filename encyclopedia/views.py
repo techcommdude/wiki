@@ -109,6 +109,18 @@ def editPage(request, title):
 
         # Use this to retrieve the entry to display.  Put it in a function?
         entryContents = util.get_entry(title)
+        stripString = "# " + title + "\n\n"
+        print(stripString)
+
+        test2 = "# " + title
+        entryContents.strip()
+        print(entryContents)
+        t = entryContents.removeprefix(test2)
+        print(t)
+        a = t.lstrip()
+        #this successfully strips out the title and newline characters.
+        print(a)
+
 
     # Trying to display the initial value of the form.
 
