@@ -27,7 +27,13 @@ class NewPageForm(forms.Form):
 class EditPageForm(forms.Form):
     title = forms.CharField(label='')
     # title = forms.CharField(label='', disabled=True)
-    content = forms.CharField(widget=forms.Textarea, label='')
+    content = forms.Textarea(label='')
+
+# class editPageForm(forms.ModelForm)
+#     def __init__(self, *args, **kwargs):
+#        super(editPageForm, self).__init__(*args, **kwargs)
+#        self.fields['content'].widget
+#        self.fields['title'].widget.attrs['readonly'] = "True"
 
 
 def newPage(request):
