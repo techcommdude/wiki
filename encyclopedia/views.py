@@ -25,15 +25,12 @@ class NewPageForm(forms.Form):
 
 
 class EditPageForm(forms.Form):
-    title = forms.CharField(label='')
-    # title = forms.CharField(label='', disabled=True)
-    content = forms.Textarea(label='')
-
-# class editPageForm(forms.ModelForm)
-#     def __init__(self, *args, **kwargs):
-#        super(editPageForm, self).__init__(*args, **kwargs)
-#        self.fields['content'].widget
-#        self.fields['title'].widget.attrs['readonly'] = "True"
+    # title = forms.CharField(label='')
+    title = forms.CharField(widget=forms.TextInput(
+        attrs={'readonly': 'readonly'}))
+    content = forms.CharField(widget=forms.Textarea, label='')
+    # content = forms.Textarea(label='')
+    # , widget=forms.CharField.widget.attrs{'readonly':'readonly'}
 
 
 def newPage(request):
@@ -126,8 +123,6 @@ def editPage(request, title):
             findInstance = re.findall(title, entryContents, re.IGNORECASE)
             title = findInstance[0]
 
-
-
         # Use this to retrieve the entry to display.  Put it in a function?
         # entryContents = util.get_entry(title)
         stripString = "# " + title + "\n\n"
@@ -148,7 +143,7 @@ def editPage(request, title):
 
         # render the page.
         return render(request, "encyclopedia/edit.html", {'form': form, "title": title}
-                    )
+                      )
 
     if request.method == 'POST':
 
@@ -163,6 +158,6 @@ def editPage(request, title):
 
             return HttpResponse("Success!  Need to capture the content in the form.")
         else:
-            #re-render invalid form with same information.
+            # re-render invalid form with same information.
             return render(request, "encyclopedia/edit.html", {'form': form, "title": title}
-                    )
+                          )
