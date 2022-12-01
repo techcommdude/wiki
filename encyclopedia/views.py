@@ -104,43 +104,42 @@ def searchResults(request):
 
 def editPage(request, title):
 
-    entryContents = util.get_entry(title)
-
-    # Trying to display the initial value of the form.
-    if entryContents != None:
-
-        # Finds the title in the entry with the correct case.
-        findInstance = re.findall(title, entryContents, re.IGNORECASE)
-        title = findInstance[0]
-
-        # Initialize the form with entry text that is stripped of extra characters.
-        form = EditPageForm(
-            initial={'content': entryContents, 'title': title})
-
-    # Use this to retrieve the entry to display.  Put it in a function?
-    # entryContents = util.get_entry(title)
-    stripString = "# " + title + "\n\n"
-    print(stripString)
-
-    # prepare the body for inserting into the edit page.
-    test2 = "# " + title
-    entryContents.strip()
-    print(entryContents)
-    t = entryContents.removeprefix(test2)
-    print(t)
-    a = t.lstrip()
-    # this successfully strips out the title and newline characters.
-    print(a)
-
-    # render the page.
-    return render(request, "encyclopedia/edit.html", {'form': form, "title": title}
-                  )
-
-    if request.method == 'POST':
-        print("Got a Post!")
-
-    if request.method == 'Get':
+    if request.method == 'GET':
 
         # this may not be required.
-        print("got a POST")
-        return HttpResponse("Got a Get from the editPage view!")
+        print("got a GET")
+
+        entryContents = util.get_entry(title)
+
+        # Trying to display the initial value of the form.
+        if entryContents != None:
+
+            # Finds the title in the entry with the correct case.
+            findInstance = re.findall(title, entryContents, re.IGNORECASE)
+            title = findInstance[0]
+
+            # Initialize the form with entry text that is stripped of extra characters.
+            form = EditPageForm(
+                initial={'content': entryContents, 'title': title})
+
+        # Use this to retrieve the entry to display.  Put it in a function?
+        # entryContents = util.get_entry(title)
+        stripString = "# " + title + "\n\n"
+        print(stripString)
+
+        # prepare the body for inserting into the edit page.
+        test2 = "# " + title
+        entryContents.strip()
+        print(entryContents)
+        t = entryContents.removeprefix(test2)
+        print(t)
+        a = t.lstrip()
+        # this successfully strips out the title and newline characters.
+        print(a)
+
+        # render the page.
+        return render(request, "encyclopedia/edit.html", {'form': form, "title": title}
+                    )
+
+    if request.method == 'POST':
+        return HttpResponse("Success!  Need to capture the content in the form.")
