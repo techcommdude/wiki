@@ -25,12 +25,9 @@ class NewPageForm(forms.Form):
 
 
 class EditPageForm(forms.Form):
-    # title = forms.CharField(label='')
-    title = forms.CharField(widget=forms.TextInput(
+    title = forms.CharField(label="", widget=forms.TextInput(
         attrs={'readonly': 'readonly'}))
     content = forms.CharField(widget=forms.Textarea, label='')
-    # content = forms.Textarea(label='')
-    # , widget=forms.CharField.widget.attrs{'readonly':'readonly'}
 
 
 def newPage(request):
