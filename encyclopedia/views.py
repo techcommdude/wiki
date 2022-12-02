@@ -55,8 +55,7 @@ def newPage(request):
                 print("The content has been saved!")
                 return HttpResponseRedirect(reverse("entries:index"))
             else:
-                 # TODO: Just need to style the alert with red.
-
+                 # This is an alert for an error.
                 return render(request, "encyclopedia/error_exists.html", {"existing": True, "new_title": new_title})
 
 
@@ -153,6 +152,8 @@ def searchResults(request):
         for i in indices:
             substringSearchResults.append(searchList[i])
         print(substringSearchResults)
+
+        #TODO: do an if statement and an alert for no search results.
 
         return render(request, "encyclopedia/searchresults.html", {
             "results": substringSearchResults
