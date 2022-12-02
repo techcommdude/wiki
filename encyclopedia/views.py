@@ -1,10 +1,10 @@
 import re
 from django.forms import formset_factory
+from django.urls import reverse
 from markdown2 import Markdown
 from django import forms
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-
 from . import util
 
 
@@ -21,7 +21,8 @@ class RandomForm(forms.Form):
 
 class NewPageForm(forms.Form):
     new_title = forms.CharField(label='Topic title:')
-    new_content = forms.CharField(widget=forms.Textarea, label='Topic content:')
+    new_content = forms.CharField(
+        widget=forms.Textarea, label='Topic content:')
 
 
 class EditPageForm(forms.Form):
@@ -46,17 +47,21 @@ def newPage(request):
 def randomPage(request):
     # Random Page: Clicking “Random Page” in the sidebar should take user to a random encyclopedia entry.
     # Get the list of entries and randomly pick one and display it.
-    form = RandomForm()
     if request.method == 'GET':
-        print("Got a GET!")
-        return HttpResponse("Random!")
+        title = "CSS"
+        htmlContent = returnHTML(title)
+        titleDisplay = returnProperTitle(title)
+        print(titleDisplay)
+        print(htmlContent)
 
-        # return HttpResponseRedirect(reverse("entries:index"))
+    if htmlContent != None:
+
+        return render(request, "encyclopedia/existing_entry.html", {"htmlContent": htmlContent, "titleDisplay": titleDisplay}
+                      )
 
 
 def displayPage(request, title):
     if request.method == 'GET':
-        # form = entryForm()
 
         # this returns the proper title and the HTML to display on the displayPage
         htmlContent = returnHTML(title)
@@ -66,8 +71,6 @@ def displayPage(request, title):
 
         if htmlContent != None:
 
-            # return render(request, "encyclopedia/existing_entry.html", {'form': form, "testContent": testContent, "title": title}
-            #                   )
             return render(request, "encyclopedia/existing_entry.html", {"htmlContent": htmlContent, "titleDisplay": titleDisplay}
                           )
 
@@ -159,15 +162,18 @@ def editPage(request, title):
             # content = "# " + title + content
             print(content)
             content = "# " + title + " \n" + content
-            content = content.replace('\r','')
+            content = content.replace('\r', '')
             print(title)
             print(content)
 
-            #Need to strip out the
+            # Need to strip out the
 
             util.save_entry(title, content)
+            print("The content has been saved!")
+            return HttpResponseRedirect(reverse("entries:index"))
 
-            return HttpResponse("The content has been saved!")
+            # return HttpResponse("The content has been saved!")
+
         else:
             # re-render invalid form with same information.
             return render(request, "encyclopedia/edit.html", {'form': form, "title": title}
