@@ -47,7 +47,11 @@ def randomPage(request):
     # Random Page: Clicking “Random Page” in the sidebar should take user to a random encyclopedia entry.
     # Get the list of entries and randomly pick one and display it.
     form = RandomForm()
-    return HttpResponse("Random Page!")
+    if request.method == 'GET':
+        print("Got a GET!")
+        return HttpResponse("Random!")
+
+        # return HttpResponseRedirect(reverse("entries:index"))
 
 
 def displayPage(request, title):

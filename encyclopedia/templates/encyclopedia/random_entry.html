@@ -7,7 +7,7 @@
 
 {% block body %}
 
-<form action="{% url 'entries:editPage' titleDisplay %}" method="get">
+<form action="{% url 'entries:randomPage' titleDisplay %}" method="get">
     {% csrf_token %}
     {{ htmlContent|safe|escape}}
 
