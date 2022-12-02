@@ -28,8 +28,7 @@ class EditPageForm(forms.Form):
 
 
 def newPage(request):
-    #TODO: Check if the entry exists and return an error page.
-    # Check if method is POST
+    # TODO: Check if the entry exists and return an error page.
     if request.method == "GET":
         form = NewPageForm()
 
@@ -43,31 +42,20 @@ def newPage(request):
         if form.is_valid():
             new_content = form.cleaned_data['new_content']
             new_title = form.cleaned_data['new_title']
-            print(new_content)
-            new_content = "# " + new_title + " \n" + new_content
-            new_content = new_content.replace('\r', '')
-            print(new_title)
-            print(new_content)
 
-            # Need to strip out the
+            if util.get_entry(new_title) == None:
 
+                print(new_content)
+                new_content = "# " + new_title + " \n" + new_content
+                new_content = new_content.replace('\r', '')
+                print(new_title)
+                print(new_content)
 
-
-            util.save_entry(new_title, new_content)
-            print("The content has been saved!")
-        return HttpResponseRedirect(reverse("entries:index"))
-
-
-
-
-
-
-        # check if the form is valid and save the entry if it does not exist.
-
-
-
-
-        return HttpResponse("Got a POST!")
+                util.save_entry(new_title, new_content)
+                print("The content has been saved!")
+                return HttpResponseRedirect(reverse("entries:index"))
+            else:
+                return HttpResponse("That entry already exists!")
 
 
 def randomPage(request):
@@ -140,6 +128,7 @@ def returnProperTitle(title):
 
         return newTitle
 
+
 def searchResults(request):
 
     if request.method == 'GET':
@@ -163,14 +152,9 @@ def searchResults(request):
             substringSearchResults.append(searchList[i])
         print(substringSearchResults)
 
-        # get the index of the matches and then print from the original list.
-        # the search results page then needs to print that original list.
-
-        #return HttpResponse("On the search results page! " )
-
         return render(request, "encyclopedia/searchresults.html", {
-        "results": substringSearchResults
-    })
+            "results": substringSearchResults
+        })
 
 
 def editPage(request, title):
