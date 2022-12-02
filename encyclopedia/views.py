@@ -92,7 +92,7 @@ def displayPage(request, title):
                           )
 
         else:
-            #TODO: Issue an HTML alert here instead as the todo in the above.
+            # Issue an HTML alert here instead as the todo in the above.
             return render(request, "encyclopedia/error.html", {
                 "title": title, "exists": False
             })
