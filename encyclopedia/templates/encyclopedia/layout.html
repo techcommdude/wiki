@@ -21,14 +21,14 @@
                 <input class="search" type="text" name="q" placeholder="Search Encyclopedia">
             </form>
             <div>
-                <a href="{% url 'entries:index' %}">Home</a>
+                <a class="white" href="{% url 'entries:index' %}">Home</a>
             </div>
             <div>
-                <a href="{% url 'entries:newPage' %}">Create New Page</a>
+                <a class="white" href="{% url 'entries:newPage' %}">Create New Page</a>
 
             </div>
             <div>
-                <a href="{% url 'entries:randomPage' %}">Random Page</a>
+                <a class="white" href="{% url 'entries:randomPage' %}">Random Page</a>
             </div>
             {% block nav %}
             {% endblock %}
