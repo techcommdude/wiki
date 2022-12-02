@@ -44,6 +44,7 @@ def newPage(request):
         # check if the form is valid and save the entry if it does not exist.
         return HttpResponse("Got a POST!")
 
+
 def randomPage(request):
     # Random Page: Clicking “Random Page” in the sidebar should take user to a random encyclopedia entry.
     # Get the list of entries and randomly pick one and display it.
@@ -105,9 +106,24 @@ def returnProperTitle(title):
 
         return newTitle
 
+# TODO: Need to fix the case sensitivity here.
+
 
 def searchResults(request):
+    # print(q)
     if request.method == 'GET':
+        queryResult = request.GET
+        query = queryResult['q']
+
+        # Do a substring search for queryResult
+        searchList = util.list_entries()
+        lowerSearchList = [item.lower() for item in searchList]
+        print(lowerSearchList)
+        matches = [match for match in lowerSearchList if query in match]
+
+        print(matches)
+        # get the index of the matches and then print from the original list.
+        # the search results page then needs to print that original list.
 
         return HttpResponse("On the search results page!")
 
@@ -133,9 +149,9 @@ def editPage(request, title):
         stripString = "# " + title + "\n\n"
         print(stripString)
 
-         # prepare the body for inserting into the edit page.
+        # prepare the body for inserting into the edit page.
         titleToInsert = "# " + title
-        #Strips the leading spaces.
+        # Strips the leading spaces.
         entryContents.strip()
         print(entryContents)
         t = entryContents.removeprefix(titleToInsert)
@@ -143,7 +159,8 @@ def editPage(request, title):
         finalContentsInsert = t.lstrip()
 
         # Initialize the form with entry text that is stripped of extra characters.
-        form = EditPageForm(initial={'content': finalContentsInsert, 'title': title})
+        form = EditPageForm(
+            initial={'content': finalContentsInsert, 'title': title})
 
         # render the page.
         return render(request, "encyclopedia/edit.html", {'form': form, "title": title}
