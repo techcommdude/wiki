@@ -1,11 +1,11 @@
 import random
 import re
 from django.forms import formset_factory
+from django.shortcuts import render
 from django.urls import reverse
 from markdown2 import Markdown
 from django import forms
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
 from . import util
 
 
@@ -28,7 +28,7 @@ class EditPageForm(forms.Form):
 
 
 def newPage(request):
-    # TODO: Check if the entry exists and return an error page.
+
     if request.method == "GET":
         form = NewPageForm()
 
@@ -55,7 +55,9 @@ def newPage(request):
                 print("The content has been saved!")
                 return HttpResponseRedirect(reverse("entries:index"))
             else:
-                return HttpResponse("That entry already exists!")
+                 # TODO: Just need to style the alert with red.
+
+                return render(request, "encyclopedia/error_exists.html", {"existing": True, "new_title": new_title})
 
 
 def randomPage(request):
@@ -90,9 +92,9 @@ def displayPage(request, title):
                           )
 
         else:
-            # Issue an HTML alert here instead.
+            #TODO: Issue an HTML alert here instead as the todo in the above.
             return render(request, "encyclopedia/error.html", {
-                "title": title
+                "title": title, "exists": False
             })
 
 

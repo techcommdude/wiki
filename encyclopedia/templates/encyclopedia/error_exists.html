@@ -6,10 +6,10 @@ Wiki page not found!
 
 {% block body %}
 
-{% if exists == False %}
+{% if existing %}
 
 <div class="alert " role="alert">
-    Error! The {{ title }} topic does not exist in the wiki.
+    Error! The {{ new_title }} topic is already in the wiki.  You can find it here: .
 </div>
 
 {% endif %}
