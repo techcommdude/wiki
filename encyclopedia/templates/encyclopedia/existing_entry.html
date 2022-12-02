@@ -7,14 +7,8 @@
 
 {% block body %}
 
-<!-- <h2>{{ title }}</h2> -->
-
-<!-- {{ testContent|safe|escape}} -->
-
 <form action="{% url 'entries:editPage' titleDisplay %}" method="get">
     {% csrf_token %}
-
-    <!-- {{ form|safe|escape }} -->
     {{ htmlContent|safe|escape}}
 
     <input class="btn btn-primary" type="submit" value="Edit">

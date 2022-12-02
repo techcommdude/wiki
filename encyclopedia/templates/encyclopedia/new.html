@@ -9,7 +9,7 @@ New wiki page
 <form action="{% url 'entries:newPage' %}" method="post">
     {% csrf_token %}
 
-        {{ form }}
+    {{ form }}
 
     <input class="btn btn-primary" type="submit" value="Save">
 </form>

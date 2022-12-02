@@ -7,8 +7,6 @@
 
 {% block body %}
 
-<!-- <h2>{{ title }}</h2> -->
-
 <form action="{% url 'entries:editPage' title %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
 
@@ -16,7 +14,6 @@
     {{ form.non_field_errors }}
     {{ form.body.errors }}
     {{ form.body }}
-
 
     <input class="btn btn-primary" type="submit" value="Save">
 </form>
