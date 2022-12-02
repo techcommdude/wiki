@@ -123,7 +123,7 @@ def returnProperTitle(title):
 
 
 def searchResults(request):
-    # print(q)
+
     if request.method == 'GET':
         queryResult = request.GET
         query = queryResult['q']
@@ -132,21 +132,6 @@ def searchResults(request):
         searchList = util.list_entries()
         lowerSearchList = [item.lower() for item in searchList]
         print(lowerSearchList)
-        # TODO: this will work for the general search of topics as a whole name since it is case-insensitive.
-        # matches = [match for match in enumerate(lowerSearchList) if query in match]
-        # print(matches[0[0]])
-
-        # This works for the general search of existing topics.
-        indices = [i for i, x in enumerate(lowerSearchList) if x == query]
-        print(indices)
-
-        # index = [item.lower() for item in searchList].index(query.lower())
-        # print(index)
-
-        # print(matches)
-
-        # indices = [index for index, lowerSearchList in enumerate(input) if query in lowerSearchList]
-        # print(input)
 
         # TODO: Yahoo this works! for the substring search.
         indices = []
