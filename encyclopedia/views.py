@@ -52,6 +52,7 @@ def randomPage(request):
         titles = util.list_entries()
         randomPick = random.choice(titles)
         htmlContent = returnHTML(randomPick)
+        #TODO: THERE is an error here when it picks testcss
         titleDisplay = returnProperTitle(randomPick)
         print(titleDisplay)
         print(htmlContent)
@@ -102,13 +103,12 @@ def returnProperTitle(title):
 
         # Finds the title in the entry with the correct case.
         findInstance = re.findall(title, entryContents, re.IGNORECASE)
+        #TODO: this does not work for other topics that have a substring that is similar to the topic title such as testcss.
         newTitle = findInstance[0]
 
         return newTitle
 
 # TODO: Need to fix the case sensitivity here.
-
-
 def searchResults(request):
     # print(q)
     if request.method == 'GET':
@@ -119,9 +119,39 @@ def searchResults(request):
         searchList = util.list_entries()
         lowerSearchList = [item.lower() for item in searchList]
         print(lowerSearchList)
-        matches = [match for match in lowerSearchList if query in match]
+        #TODO: this will work for the general search of topics as a whole name since it is case-insensitive.
+        # matches = [match for match in enumerate(lowerSearchList) if query in match]
+        #print(matches[0[0]])
 
-        print(matches)
+        #This works for the general search of existing topics.
+        indices = [i for i, x in enumerate(lowerSearchList) if x == query]
+        print(indices)
+
+
+        # index = [item.lower() for item in searchList].index(query.lower())
+        # print(index)
+
+        # print(matches)
+
+
+        # indices = [index for index, lowerSearchList in enumerate(input) if query in lowerSearchList]
+        # print(input)
+
+
+        #TODO: Yahoo this works! for the substring search.
+        indices = []
+        for i, elem in enumerate(lowerSearchList):
+            if query in elem:
+                indices.append(i)
+        print(indices)
+
+        substringSearchResults = []
+        for i in indices:
+            substringSearchResults.append(searchList[i])
+        print(substringSearchResults)
+
+
+
         # get the index of the matches and then print from the original list.
         # the search results page then needs to print that original list.
 
