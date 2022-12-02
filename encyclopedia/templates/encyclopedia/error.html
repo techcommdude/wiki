@@ -14,4 +14,12 @@ Wiki page not found!
 
 {% endif %}
 
+{% if noResults == False %}
+
+<div class="alert " role="alert">
+    No search results for "{{ query }}".
+</div>
+
+{% endif %}
+
 {% endblock %}

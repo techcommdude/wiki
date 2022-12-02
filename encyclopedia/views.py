@@ -153,9 +153,19 @@ def searchResults(request):
             substringSearchResults.append(searchList[i])
         print(substringSearchResults)
 
+        if len(substringSearchResults) == 0:
+            # return HttpResponse("No search results.")
+
+            # Issue an HTML alert here
+            return render(request, "encyclopedia/error.html", {
+                "query": query, "noResults": False
+            })
+
         #TODO: do an if statement and an alert for no search results.
 
-        return render(request, "encyclopedia/searchresults.html", {
+        else:
+
+            return render(request, "encyclopedia/searchresults.html", {
             "results": substringSearchResults
         })
 
