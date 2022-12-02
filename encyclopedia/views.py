@@ -41,19 +41,19 @@ def newPage(request):
         print(form.as_p())
         print("End of errors!")
         if form.is_valid():
-            content = form.cleaned_data['content']
-            title = form.cleaned_data['title']
-            print(content)
-            content = "# " + title + " \n" + content
-            content = content.replace('\r', '')
-            print(title)
-            print(content)
+            new_content = form.cleaned_data['new_content']
+            new_title = form.cleaned_data['new_title']
+            print(new_content)
+            new_content = "# " + new_title + " \n" + new_content
+            new_content = new_content.replace('\r', '')
+            print(new_title)
+            print(new_content)
 
             # Need to strip out the
 
-            util.save_entry(title, content)
+            util.save_entry(new_title, new_content)
             print("The content has been saved!")
-            return HttpResponseRedirect(reverse("entries:index"))
+        return HttpResponseRedirect(reverse("entries:index"))
 
 
 
