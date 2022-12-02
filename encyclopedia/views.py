@@ -51,6 +51,8 @@ def newPage(request):
 
             # Need to strip out the
 
+
+
             util.save_entry(new_title, new_content)
             print("The content has been saved!")
         return HttpResponseRedirect(reverse("entries:index"))

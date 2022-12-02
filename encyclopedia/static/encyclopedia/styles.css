@@ -63,6 +63,16 @@ textarea {
     text-decoration: none;
 }
 
+.sidebar a:hover {
+    color: grey;
+    text-decoration: none;
+}
+
+.main a:hover {
+    text-decoration: none;
+    color: black;
+}
+
 .sidebar h2 {
     margin-top: 5px;
     color: grey;
