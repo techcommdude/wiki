@@ -14,9 +14,9 @@ def index(request):
     })
 
 
-class RandomForm(forms.Form):
-    title = forms.CharField(label='')
-    content = forms.CharField(widget=forms.Textarea)
+# class RandomForm(forms.Form):
+#     title = forms.CharField(label='')
+#     content = forms.CharField(widget=forms.Textarea)
 
 
 class NewPageForm(forms.Form):
@@ -157,9 +157,6 @@ def editPage(request, title):
         if form.is_valid():
             content = form.cleaned_data['content']
             title = form.cleaned_data['title']
-            # content = content.replace('\n',' ')
-            # content = content.replace('\r',' ')
-            # content = "# " + title + content
             print(content)
             content = "# " + title + " \n" + content
             content = content.replace('\r', '')
