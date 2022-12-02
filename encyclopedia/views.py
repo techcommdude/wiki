@@ -28,7 +28,7 @@ class EditPageForm(forms.Form):
 
 
 def newPage(request):
-
+    #TODO: Check if the entry exists and return an error page.
     # Check if method is POST
     if request.method == "GET":
         form = NewPageForm()
@@ -36,7 +36,35 @@ def newPage(request):
         return render(request, "encyclopedia/new.html", {'form': form})
 
     if request.method == "POST":
+
+        form = NewPageForm(request.POST)
+        print(form.as_p())
+        print("End of errors!")
+        if form.is_valid():
+            content = form.cleaned_data['content']
+            title = form.cleaned_data['title']
+            print(content)
+            content = "# " + title + " \n" + content
+            content = content.replace('\r', '')
+            print(title)
+            print(content)
+
+            # Need to strip out the
+
+            util.save_entry(title, content)
+            print("The content has been saved!")
+            return HttpResponseRedirect(reverse("entries:index"))
+
+
+
+
+
+
         # check if the form is valid and save the entry if it does not exist.
+
+
+
+
         return HttpResponse("Got a POST!")
 
 
@@ -99,9 +127,6 @@ def returnProperTitle(title):
         searchList = util.list_entries()
         lowerSearchList = [item.lower() for item in searchList]
         print(lowerSearchList)
-        # TODO: this will work for the general search of topics as a whole name since it is case-insensitive.
-        # matches = [match for match in enumerate(lowerSearchList) if query in match]
-        # print(matches[0[0]])
 
         # This works for the general search of existing topics.
         indices = [i for i, x in enumerate(lowerSearchList) if x == title]
@@ -109,13 +134,9 @@ def returnProperTitle(title):
 
         # Finds the title in the entry with the correct case.
         findInstance = re.findall(title, entryContents, re.IGNORECASE)
-        # TODO: this does not work for other topics that have a substring that is similar to the topic title such as testcss.
         newTitle = findInstance[0]
 
         return newTitle
-
-# TODO: Need to fix the case sensitivity here.
-
 
 def searchResults(request):
 
@@ -128,7 +149,7 @@ def searchResults(request):
         lowerSearchList = [item.lower() for item in searchList]
         print(lowerSearchList)
 
-        # TODO: Yahoo this works! for the substring search.
+        # Yahoo this works! for the substring search.
         indices = []
         for i, elem in enumerate(lowerSearchList):
             if query in elem:
