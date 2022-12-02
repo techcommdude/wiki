@@ -15,11 +15,6 @@ def index(request):
     })
 
 
-# class RandomForm(forms.Form):
-#     title = forms.CharField(label='')
-#     content = forms.CharField(widget=forms.Textarea)
-
-
 class NewPageForm(forms.Form):
     new_title = forms.CharField(label='Topic title:')
     new_content = forms.CharField(
@@ -148,7 +143,11 @@ def searchResults(request):
         # get the index of the matches and then print from the original list.
         # the search results page then needs to print that original list.
 
-        return HttpResponse("On the search results page!")
+        #return HttpResponse("On the search results page! " )
+
+        return render(request, "encyclopedia/searchresults.html", {
+        "results": substringSearchResults
+    })
 
 
 def editPage(request, title):
