@@ -133,19 +133,17 @@ def editPage(request, title):
         stripString = "# " + title + "\n\n"
         print(stripString)
 
-        #TODO: make this more readable.
-        # prepare the body for inserting into the edit page.
-        test2 = "# " + title
+         # prepare the body for inserting into the edit page.
+        titleToInsert = "# " + title
+        #Strips the leading spaces.
         entryContents.strip()
         print(entryContents)
-        t = entryContents.removeprefix(test2)
-        print(t)
-        a = t.lstrip()
-        # this successfully strips out the title and newline characters.
-        print(a)
+        t = entryContents.removeprefix(titleToInsert)
+        # Left strip characters.
+        finalContentsInsert = t.lstrip()
 
         # Initialize the form with entry text that is stripped of extra characters.
-        form = EditPageForm(initial={'content': a, 'title': title})
+        form = EditPageForm(initial={'content': finalContentsInsert, 'title': title})
 
         # render the page.
         return render(request, "encyclopedia/edit.html", {'form': form, "title": title}
