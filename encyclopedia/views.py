@@ -44,18 +44,14 @@ def newPage(request):
         # check if the form is valid and save the entry if it does not exist.
         return HttpResponse("Got a POST!")
 
-# TODO: Make this truly random.
 def randomPage(request):
     # Random Page: Clicking “Random Page” in the sidebar should take user to a random encyclopedia entry.
     # Get the list of entries and randomly pick one and display it.
     if request.method == 'GET':
         titles = util.list_entries()
-        print(titles)
-        print(random.choice(titles))
-
-        title = "CSS"
-        htmlContent = returnHTML(title)
-        titleDisplay = returnProperTitle(title)
+        randomPick = random.choice(titles)
+        htmlContent = returnHTML(randomPick)
+        titleDisplay = returnProperTitle(randomPick)
         print(titleDisplay)
         print(htmlContent)
 
@@ -137,6 +133,7 @@ def editPage(request, title):
         stripString = "# " + title + "\n\n"
         print(stripString)
 
+        #TODO: make this more readable.
         # prepare the body for inserting into the edit page.
         test2 = "# " + title
         entryContents.strip()
