@@ -41,4 +41,5 @@ Some of the technologies used:
 
 * Markdown to HTML Conversion: On each entry’s page, any Markdown content in the entry file is converted to HTML before being displayed to the user. The python-markdown2 package is used to perform this conversion.
 
+## Screen capture of the application:
 ![Wiki project](Wiki_page.png)
