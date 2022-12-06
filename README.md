@@ -1,6 +1,6 @@
 # Wiki website using Django framework and Python
 
-This site allows users to create wiki topics/entries in Markdown format and save the entry in a SQLITE3 database.  Markdown content is retrieved from the database and displayed in the browser in HTML format.
+This simple website is built using the Django framework and allows users to create wiki topics/entries in Markdown format and save the entry in a SQLITE3 database.  Markdown content is retrieved from the database and displayed in the browser in HTML format.
 
 Some of the technologies used:
 
