@@ -40,3 +40,5 @@ Some of the technologies used:
 * **Random Page**: Clicking “Random Page” in the sidebar takes the user to a random encyclopedia entry.
 
 * Markdown to HTML Conversion: On each entry’s page, any Markdown content in the entry file is converted to HTML before being displayed to the user. The python-markdown2 package is used to perform this conversion.
+
+![Wiki project](Wiki_page.png)
