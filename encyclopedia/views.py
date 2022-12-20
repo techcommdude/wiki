@@ -91,7 +91,7 @@ def displayPage(request, title):
                           )
 
         else:
-            # Issue an HTML alert here instead as the todo in the above.
+            # Issue an HTML alert here
             return render(request, "encyclopedia/error.html", {
                 "title": title, "exists": False
             })
@@ -160,8 +160,6 @@ def searchResults(request):
             return render(request, "encyclopedia/error.html", {
                 "query": query, "noResults": False
             })
-
-        #TODO: do an if statement and an alert for no search results.
 
         else:
 
