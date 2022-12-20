@@ -138,8 +138,24 @@ def searchResults(request):
 
         # Do a substring search for queryResult
         searchList = util.list_entries()
+
+
+
+
+
         lowerSearchList = [item.lower() for item in searchList]
         print(lowerSearchList)
+
+       #TODO: If query is in searchList, then go to the page directly at this point.
+        # otherwise continue.
+        if query.lower() in lowerSearchList:
+
+            titleDisplay = query.lower()
+            htmlContent = returnHTML(query)
+            # render the page since the search was an exact match.
+            return render(request, "encyclopedia/existing_entry.html", {"htmlContent": htmlContent, "titleDisplay": titleDisplay}
+                          )
+
 
         # Yahoo this works! for the substring search.
         indices = []
