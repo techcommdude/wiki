@@ -146,7 +146,7 @@ def searchResults(request):
         lowerSearchList = [item.lower() for item in searchList]
         print(lowerSearchList)
 
-       #TODO: If query is in searchList, then go to the page directly at this point.
+       #If query is in searchList, then go to the page directly at this point.
         # otherwise continue.
         if query.lower() in lowerSearchList:
 
@@ -161,7 +161,10 @@ def searchResults(request):
         indices = []
         for i, elem in enumerate(lowerSearchList):
             if query in elem:
-                indices.append(i)
+                if query.lower() in lowerSearchList:
+                    print("Do nothing")
+                else:
+                    indices.append(i)
         print(indices)
 
         #TODO: If the entry exists, go directly to that entry.  If you only get substring
