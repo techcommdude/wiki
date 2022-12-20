@@ -148,6 +148,9 @@ def searchResults(request):
                 indices.append(i)
         print(indices)
 
+        #TODO: If the entry exists, go directly to that entry.  If you only get substring
+        # results, then print it to screen.
+
         substringSearchResults = []
         for i in indices:
             substringSearchResults.append(searchList[i])
