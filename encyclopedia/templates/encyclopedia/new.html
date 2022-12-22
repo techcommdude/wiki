@@ -5,6 +5,7 @@ Create new wiki page
 {% endblock %}
 
 {% block body %}
+{% include "encyclopedia/messages.html" %}
 
 <form action="{% url 'entries:newPage' %}" method="post">
     {% csrf_token %}

@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block body %}
+{% include "encyclopedia/messages.html" %}
 
 <form action="{% url 'entries:randomPage' titleDisplay %}" method="get">
     {% csrf_token %}
