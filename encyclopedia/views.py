@@ -90,6 +90,8 @@ def displayPage(request, title):
             return render(request, "encyclopedia/existing_entry.html", {"htmlContent": htmlContent, "titleDisplay": titleDisplay}
                           )
 
+        #TODO: Issue an  error message here.
+
         else:
             # Issue an HTML alert here
             return render(request, "encyclopedia/error.html", {
@@ -140,9 +142,6 @@ def searchResults(request):
         searchList = util.list_entries()
 
 
-
-
-
         lowerSearchList = [item.lower() for item in searchList]
         print(lowerSearchList)
 
@@ -179,6 +178,7 @@ def searchResults(request):
             # return HttpResponse("No search results.")
 
             # Issue an HTML alert here
+            #TODO: Issue an  error message here.
             return render(request, "encyclopedia/error.html", {
                 "query": query, "noResults": False
             })
