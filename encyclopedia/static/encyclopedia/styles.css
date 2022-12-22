@@ -86,3 +86,8 @@ textarea {
     margin-top: 5px;
     color: grey;
 }
+
+#id_new_title {
+
+    width: 65%;
+}
