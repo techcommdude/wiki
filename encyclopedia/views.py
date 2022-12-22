@@ -200,7 +200,6 @@ def editPage(request, title):
             title = findInstance[0]
 
         # Use this to retrieve the entry to display.  Put it in a function?
-        # entryContents = util.get_entry(title)
         stripString = "# " + title + "\n\n"
         print(stripString)
 
