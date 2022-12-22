@@ -1,5 +1,6 @@
 import random
 import re
+from django.contrib import messages
 from django.forms import formset_factory
 from django.shortcuts import render
 from django.urls import reverse
@@ -55,7 +56,7 @@ def newPage(request):
                 print("The content has been saved!")
                 return HttpResponseRedirect(reverse("entries:index"))
             else:
-                 # This is an alert for an error.
+                # This is an alert for an error.
                 return render(request, "encyclopedia/error_exists.html", {"existing": True, "new_title": new_title})
 
 
@@ -90,13 +91,11 @@ def displayPage(request, title):
             return render(request, "encyclopedia/existing_entry.html", {"htmlContent": htmlContent, "titleDisplay": titleDisplay}
                           )
 
-        #TODO: Issue an  error message here.
-
         else:
             # Issue an HTML alert here
-            return render(request, "encyclopedia/error.html", {
-                "title": title, "exists": False
-            })
+
+            messages.error(request, 'No entries found for your search.')
+            return HttpResponseRedirect(reverse("entries:index"))
 
 
 def returnHTML(title):
@@ -141,11 +140,10 @@ def searchResults(request):
         # Do a substring search for queryResult
         searchList = util.list_entries()
 
-
         lowerSearchList = [item.lower() for item in searchList]
         print(lowerSearchList)
 
-       #If query is in searchList, then go to the page directly at this point.
+       # If query is in searchList, then go to the page directly at this point.
         # otherwise continue.
         if query.lower() in lowerSearchList:
 
@@ -154,7 +152,6 @@ def searchResults(request):
             # render the page since the search was an exact match.
             return render(request, "encyclopedia/existing_entry.html", {"htmlContent": htmlContent, "titleDisplay": titleDisplay}
                           )
-
 
         # Yahoo this works! for the substring search.
         indices = []
@@ -166,7 +163,7 @@ def searchResults(request):
                     indices.append(i)
         print(indices)
 
-        #TODO: If the entry exists, go directly to that entry.  If you only get substring
+        # TODO: If the entry exists, go directly to that entry.  If you only get substring
         # results, then print it to screen.
 
         substringSearchResults = []
@@ -175,19 +172,15 @@ def searchResults(request):
         print(substringSearchResults)
 
         if len(substringSearchResults) == 0:
-            # return HttpResponse("No search results.")
-
-            # Issue an HTML alert here
-            #TODO: Issue an  error message here.
-            return render(request, "encyclopedia/error.html", {
-                "query": query, "noResults": False
-            })
+            # No search results, so return an error.
+            messages.error(request, 'No entries found for your search.')
+            return HttpResponseRedirect(reverse("entries:index"))
 
         else:
 
             return render(request, "encyclopedia/searchresults.html", {
-            "results": substringSearchResults
-        })
+                "results": substringSearchResults
+            })
 
 
 def editPage(request, title):
