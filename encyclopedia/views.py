@@ -54,7 +54,14 @@ def newPage(request):
 
                 util.save_entry(new_title, new_content)
                 print("The content has been saved!")
-                return HttpResponseRedirect(reverse("entries:index"))
+
+                htmlContent = returnHTML(new_title)
+                titleDisplay = returnProperTitle(new_title)
+
+                #Display the new page here after it is created.
+                #
+                return render(request, "encyclopedia/existing_entry.html", {"htmlContent": htmlContent, "titleDisplay": titleDisplay}
+                          )
             else:
                 # This is an alert for an error.
                 return render(request, "encyclopedia/error_exists.html", {"existing": True, "new_title": new_title})
@@ -88,6 +95,7 @@ def displayPage(request, title):
 
         if htmlContent != None:
 
+            #Render the then entry after you create it.
             return render(request, "encyclopedia/existing_entry.html", {"htmlContent": htmlContent, "titleDisplay": titleDisplay}
                           )
 
@@ -163,7 +171,7 @@ def searchResults(request):
                     indices.append(i)
         print(indices)
 
-        # TODO: If the entry exists, go directly to that entry.  If you only get substring
+        # If the entry exists, go directly to that entry.  If you only get substring
         # results, then print it to screen.
 
         substringSearchResults = []
