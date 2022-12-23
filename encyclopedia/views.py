@@ -254,3 +254,7 @@ def editPage(request, title):
             # re-render invalid form with same information.
             return render(request, "encyclopedia/edit.html", {'form': form, "title": title}
                           )
+def handler404(request, exception, template_name="404.html"):
+    response = render(template_name)
+    response.status_code = 404
+    return response
