@@ -1,7 +1,6 @@
 import random
 import re
 from django.contrib import messages
-from django.forms import formset_factory
 from django.shortcuts import render
 from django.urls import reverse
 from markdown2 import Markdown
