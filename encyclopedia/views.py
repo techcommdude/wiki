@@ -101,7 +101,6 @@ def displayPage(request, title):
 
         else:
             # Issue an HTML alert here
-
             messages.error(request, 'No entries found for your search.')
             return HttpResponseRedirect(reverse("entries:index"))
 
@@ -242,8 +241,7 @@ def editPage(request, title):
             print(title)
             print(content)
 
-            # Need to strip out the
-
+            #TODO: Display the form again or at least display a message.
             util.save_entry(title, content)
             print("The content has been saved!")
             return HttpResponseRedirect(reverse("entries:index"))
