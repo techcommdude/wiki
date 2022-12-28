@@ -252,6 +252,9 @@ def editPage(request, title):
 
             print("The content has been saved!")
             #Display the page again.
+
+                        # Issue an HTML alert here
+            messages.info(request, 'Your entry has been saved.')
             return render(request, "encyclopedia/existing_entry.html", {"htmlContent": htmlContent, "titleDisplay": titleDisplay}
                       )
 
