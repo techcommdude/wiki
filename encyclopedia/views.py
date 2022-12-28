@@ -58,7 +58,6 @@ def newPage(request):
                 titleDisplay = returnProperTitle(new_title)
 
                 # Display the new page here after it is created.
-                #
                 return render(request, "encyclopedia/existing_entry.html", {"htmlContent": htmlContent, "titleDisplay": titleDisplay}
                               )
             else:
@@ -250,12 +249,12 @@ def editPage(request, title):
             print(htmlContent)
 
             print("The content has been saved!")
-            #Display the page again.
+            # Display the page again.
 
-                        # Issue an HTML alert here
+            # Issue an HTML alert here
             messages.info(request, 'Your entry has been saved.')
             return render(request, "encyclopedia/existing_entry.html", {"htmlContent": htmlContent, "titleDisplay": titleDisplay}
-                      )
+                          )
 
         # return HttpResponse("The content has been saved!")
 
