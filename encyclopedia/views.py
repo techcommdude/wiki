@@ -58,10 +58,10 @@ def newPage(request):
                 htmlContent = returnHTML(new_title)
                 titleDisplay = returnProperTitle(new_title)
 
-                #Display the new page here after it is created.
+                # Display the new page here after it is created.
                 #
                 return render(request, "encyclopedia/existing_entry.html", {"htmlContent": htmlContent, "titleDisplay": titleDisplay}
-                          )
+                              )
             else:
                 # This is an alert for an error.
                 return render(request, "encyclopedia/error_exists.html", {"existing": True, "new_title": new_title})
@@ -95,7 +95,7 @@ def displayPage(request, title):
 
         if htmlContent != None:
 
-            #Render the then entry after you create it.
+            # Render the then entry after you create it.
             return render(request, "encyclopedia/existing_entry.html", {"htmlContent": htmlContent, "titleDisplay": titleDisplay}
                           )
 
@@ -241,17 +241,28 @@ def editPage(request, title):
             print(title)
             print(content)
 
-            #TODO: Display the form again or at least display a message.
+            # Display the form again or at least display a message.
             util.save_entry(title, content)
-            print("The content has been saved!")
-            return HttpResponseRedirect(reverse("entries:index"))
 
-            # return HttpResponse("The content has been saved!")
+            # this returns the proper title and the HTML to display on the displayPage
+            htmlContent = returnHTML(title)
+            titleDisplay = returnProperTitle(title)
+            print(titleDisplay)
+            print(htmlContent)
+
+            print("The content has been saved!")
+            #Display the page again.
+            return render(request, "encyclopedia/existing_entry.html", {"htmlContent": htmlContent, "titleDisplay": titleDisplay}
+                      )
+
+        # return HttpResponse("The content has been saved!")
 
         else:
             # re-render invalid form with same information.
             return render(request, "encyclopedia/edit.html", {'form': form, "title": title}
                           )
+
+
 def handler404(request, exception, template_name="404.html"):
     response = render(template_name)
     response.status_code = 404
