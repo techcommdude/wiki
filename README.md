@@ -14,7 +14,7 @@ Some of the technologies used:
 -----------
 ## Project overview
 
-* **Entry Page**: Visiting */wiki/TITLE*, where **TITLE** is the title of an encyclopedia entry, should render a page that displays the contents of that encyclopedia entry.
+* **Entry Page**: Visiting */wiki/TITLE*, where **TITLE** is the title of an encyclopedia entry, will render a page that displays the contents of that encyclopedia entry.
     * The view gets the contents of the encyclopedia entry by calling the appropriate utility function.
     * If an entry is requested that does not exist, the user is presented with an error page indicating that their requested page was not found.
     * If the entry does exist, the user is presented with a page that displays the content of the entry. The title of the page includes the name of the entry.
