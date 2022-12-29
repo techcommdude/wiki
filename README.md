@@ -1,6 +1,6 @@
 # Wiki website using Django framework and Python
 
-This simple website is built using the Django framework and allows users to create wiki topics/entries in Markdown format and save the entry in a SQLITE3 database.  Markdown content is retrieved from the database and displayed in the browser in HTML format.
+This simple website is built using the Django framework and allows users to create wiki topics/entries in Markdown format and save the entry in a SQLITE3 database.  Markdown content is retrieved from the database and displayed in the browser in HTML format.  The python-markdown2 package is used to convert the markdown to HTML and vice-versa.
 
 Some of the technologies used:
 
@@ -37,9 +37,9 @@ Some of the technologies used:
     * The user can click a button to save the changes made to the entry.
     * Once the entry is saved, the user is redirected back to that entry’s page.
 
-* **Random Page**: Clicking “Random Page” in the sidebar takes the user to a random encyclopedia entry.
+* **Random Page**: Clicking “Random Page” in the sidebar takes the user to a random encyclopedia entry displayed in HTML format that the user can then edit.
 
-* Markdown to HTML Conversion: On each entry’s page, any Markdown content in the entry file is converted to HTML before being displayed to the user. The python-markdown2 package is used to perform this conversion.
+* **Markdown to HTML Conversion**: On each entry’s page, any Markdown content in the entry file is converted to HTML before being displayed to the user. The python-markdown2 package is used to perform this conversion.
 
 ## Screen capture of the application:
 ![Wiki project](Wiki_page.png)
