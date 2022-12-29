@@ -2,6 +2,15 @@
 
 This simple website is built using the Django framework and allows users to create wiki topics/entries in Markdown format and save the entry in a SQLITE3 database.  Markdown content is retrieved from the database and displayed in the browser in HTML format.  The python-markdown2 package is used to convert the markdown to HTML and vice-versa.
 
+This project is deployed on Heroku (have patience since the instance is likely sleeping): <a href=""></a>
+
+A screencast of the project can be found here: <a href="https://youtu.be/uve57RZE3SU">https://youtu.be/uve57RZE3SU</a>
+
+You can log in to the app with this account:
+
+* username: **guest**
+* password: **123**
+
 Some of the technologies used:
 
 * Visual Studio Code
