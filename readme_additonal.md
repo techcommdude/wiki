@@ -17,7 +17,7 @@ sudo fuser -k 5000/tcp
 
 **Connect to the remote repository:**
 
-heroku git:remote -a wiki-markdown-html
+heroku git:remote -a wiki-markdown-gfarnell
 
 **Perhaps do this and make sure everything is committed to Git:**
 
