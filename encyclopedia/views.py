@@ -59,7 +59,7 @@ def newPage(request):
                               )
             else:
                 # This is an alert for an error.
-                messages.error(request, 'This topic already exists in the wiki.')
+                messages.error(request, 'This topic already exists in the wiki. Please try again.')
                 return render(request, "encyclopedia/error_exists.html", {"existing": True, "new_title": new_title})
 
 
