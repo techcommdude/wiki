@@ -8,8 +8,8 @@
 {% block body %}
 {% include "encyclopedia/messages.html" %}
 
-<form action="{% url 'entries:editPage' titleDisplay %}" method="get" enctype="multipart/form-data">
-    {% csrf_token %}
+<form action="{% url 'entries:editPage' titleDisplay %}" method="get">
+
     {{ htmlContent|safe|escape}}
 
     <input class="btn btn-primary" type="submit" value="Edit">
