@@ -54,10 +54,12 @@ def newPage(request):
                 titleDisplay = returnProperTitle(new_title)
 
                 # Display the new page here after it is created.
+                messages.success(request, 'New page has been created.')
                 return render(request, "encyclopedia/existing_entry.html", {"htmlContent": htmlContent, "titleDisplay": titleDisplay}
                               )
             else:
                 # This is an alert for an error.
+                messages.error(request, 'This topic already exists in the wiki.')
                 return render(request, "encyclopedia/error_exists.html", {"existing": True, "new_title": new_title})
 
 
