@@ -37,7 +37,6 @@ def newPage(request):
     if request.method == "POST":
 
         form = NewPageForm(request.POST)
-        print(form.as_p())
         print("End of errors!")
         if form.is_valid():
             new_content = form.cleaned_data['new_content']
@@ -45,11 +44,8 @@ def newPage(request):
 
             if util.get_entry(new_title) == None:
 
-                print(new_content)
                 new_content = "# " + new_title + " \n" + new_content
                 new_content = new_content.replace('\r', '')
-                print(new_title)
-                print(new_content)
 
                 util.save_entry(new_title, new_content)
                 print("The content has been saved!")
@@ -73,8 +69,6 @@ def randomPage(request):
         randomPick = random.choice(titles)
         htmlContent = returnHTML(randomPick)
         titleDisplay = returnProperTitle(randomPick)
-        print(titleDisplay)
-        print(htmlContent)
 
     if htmlContent != None:
 
@@ -90,8 +84,6 @@ def displayPage(request, title):
         # this returns the proper title and the HTML to display on the displayPage
         htmlContent = returnHTML(title)
         titleDisplay = returnProperTitle(title)
-        print(titleDisplay)
-        print(htmlContent)
 
         if htmlContent != None:
 
@@ -125,11 +117,9 @@ def returnProperTitle(title):
         # Do a substring search for queryResult
         searchList = util.list_entries()
         lowerSearchList = [item.lower() for item in searchList]
-        print(lowerSearchList)
 
         # This works for the general search of existing topics.
         indices = [i for i, x in enumerate(lowerSearchList) if x == title]
-        print(indices)
 
         # Finds the title in the entry with the correct case.
         findInstance = re.findall(title, entryContents, re.IGNORECASE)
@@ -148,7 +138,6 @@ def searchResults(request):
         searchList = util.list_entries()
 
         lowerSearchList = [item.lower() for item in searchList]
-        print(lowerSearchList)
 
        # If query is in searchList, then go to the page directly at this point.
         # otherwise continue.
@@ -168,7 +157,6 @@ def searchResults(request):
                     print("Do nothing")
                 else:
                     indices.append(i)
-        print(indices)
 
         # If the entry exists, go directly to that entry.  If you only get substring
         # results, then print it to screen.
@@ -176,7 +164,6 @@ def searchResults(request):
         substringSearchResults = []
         for i in indices:
             substringSearchResults.append(searchList[i])
-        print(substringSearchResults)
 
         if len(substringSearchResults) == 0:
             # No search results, so return an error.
@@ -194,9 +181,6 @@ def editPage(request, title):
 
     if request.method == 'GET':
 
-        # this may not be required.
-        print("got a GET")
-
         entryContents = util.get_entry(title)
 
         # Trying to display the initial value of the form.
@@ -208,13 +192,11 @@ def editPage(request, title):
 
         # Use this to retrieve the entry to display.  Put it in a function?
         stripString = "# " + title + "\n\n"
-        print(stripString)
 
         # prepare the body for inserting into the edit page.
         titleToInsert = "# " + title
         # Strips the leading spaces.
         entryContents.strip()
-        print(entryContents)
         t = entryContents.removeprefix(titleToInsert)
         # Left strip characters.
         finalContentsInsert = t.lstrip()
@@ -230,16 +212,13 @@ def editPage(request, title):
     if request.method == 'POST':
 
         form = EditPageForm(request.POST)
-        print(form.as_p())
         print("End of errors!")
         if form.is_valid():
             content = form.cleaned_data['content']
             title = form.cleaned_data['title']
-            print(content)
+
             content = "# " + title + " \n" + content
             content = content.replace('\r', '')
-            print(title)
-            print(content)
 
             # Display the form again or at least display a message.
             util.save_entry(title, content)
@@ -247,8 +226,6 @@ def editPage(request, title):
             # this returns the proper title and the HTML to display on the displayPage
             htmlContent = returnHTML(title)
             titleDisplay = returnProperTitle(title)
-            print(titleDisplay)
-            print(htmlContent)
 
             print("The content has been saved!")
             # Display the page again.
