@@ -78,6 +78,8 @@ def randomPage(request):
 
     if htmlContent != None:
 
+                  # Issue an HTML alert here
+        messages.success(request, 'Random page displayed.')
         return render(request, "encyclopedia/existing_entry.html", {"htmlContent": htmlContent, "titleDisplay": titleDisplay}
                       )
 

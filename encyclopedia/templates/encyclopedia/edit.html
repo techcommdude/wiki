@@ -12,10 +12,6 @@
     {% csrf_token %}
 
     {{ form|safe }}
-    <!-- Attempting to troubleshoot some form errors -->
-    {{ form.non_field_errors }}
-    {{ form.body.errors }}
-    {{ form.body }}
 
     <input class="btn btn-primary" type="submit" value="Save">
 </form>
