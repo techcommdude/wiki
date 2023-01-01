@@ -23,7 +23,7 @@ heroku git:remote -a wiki-markdown-gfarnell
 
 git add .
 
-**Commit the files:**
+**Commit the files**
 
 git commit -am "make it better"
 
