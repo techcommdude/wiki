@@ -2,7 +2,7 @@
 
 This application allows users to create wiki topics/entries in Markdown format and save the entry in to the Django SQLITE3 database.  When viewing topics, Markdown content is retrieved from the database and displayed in the browser in HTML format.  The __python-markdown2__ package is used to convert the markdown to HTML and vice-versa.
 
-This project is deployed on Heroku (have patience since the instance is likely sleeping): <a href=""></a>
+This project is deployed on Heroku (have patience since the instance is likely sleeping): <a href="https://wiki-markdown-html.herokuapp.com/"></a>
 
 A screencast of the project can be found here: <a href="https://youtu.be/uve57RZE3SU">https://youtu.be/uve57RZE3SU</a>
 
