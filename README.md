@@ -13,8 +13,6 @@ You can log in to the app with this account:
 
 Some of the technologies I used when building the demo app:
 
-Another test.
-
 * Visual Studio Code
 * Django web framework
 * Python
