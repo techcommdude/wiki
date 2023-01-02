@@ -8,8 +8,6 @@ A screencast of the project can be found here: <a href="https://youtu.be/uve57RZ
 
 You can log in to the app with this account:
 
-This is a test.
-
 * username: **guest**
 * password: **123**
 
