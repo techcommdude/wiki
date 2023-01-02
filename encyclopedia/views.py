@@ -185,6 +185,7 @@ def editPage(request, title):
 
     if request.method == 'GET':
 
+        #TODO: retrieve from the model here to get the contents.  It retains all of the \n\r characters. Need to do that in the database as well.
         entryContents = util.get_entry(title)
 
         # Trying to display the initial value of the form.
