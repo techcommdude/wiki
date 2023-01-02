@@ -42,13 +42,11 @@ def newPage(request):
             new_content = form.cleaned_data['new_content']
             new_title = form.cleaned_data['new_title']
 
-            #TODO: Maintain a list of library titles in the model that you can search.
             if util.get_entry(new_title) == None:
 
                 new_content = "# " + new_title + " \n" + new_content
                 new_content = new_content.replace('\r', '')
 
-                #TODO: Save the entry to the database.  A Char field.
                 util.save_entry(new_title, new_content)
                 print("The content has been saved!")
 
@@ -61,7 +59,8 @@ def newPage(request):
                               )
             else:
                 # This is an alert for an error.
-                messages.error(request, 'This topic already exists in the wiki. Please try again.')
+                messages.error(
+                    request, 'This topic already exists in the wiki. Please try again.')
                 return render(request, "encyclopedia/error_exists.html", {"existing": True, "new_title": new_title})
 
 
@@ -76,7 +75,7 @@ def randomPage(request):
 
     if htmlContent != None:
 
-                  # Issue an HTML alert here
+        # Issue an HTML alert here
         messages.success(request, 'Random page displayed.')
         return render(request, "encyclopedia/existing_entry.html", {"htmlContent": htmlContent, "titleDisplay": titleDisplay}
                       )
@@ -185,7 +184,6 @@ def editPage(request, title):
 
     if request.method == 'GET':
 
-        #TODO: retrieve from the model here to get the contents.  It retains all of the \n\r characters. Need to do that in the database as well.
         entryContents = util.get_entry(title)
 
         # Trying to display the initial value of the form.
