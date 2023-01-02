@@ -42,11 +42,13 @@ def newPage(request):
             new_content = form.cleaned_data['new_content']
             new_title = form.cleaned_data['new_title']
 
+            #TODO: Maintain a list of library titles in the model that you can search.
             if util.get_entry(new_title) == None:
 
                 new_content = "# " + new_title + " \n" + new_content
                 new_content = new_content.replace('\r', '')
 
+                #TODO: Save the entry to the database.  A Char field.
                 util.save_entry(new_title, new_content)
                 print("The content has been saved!")
 

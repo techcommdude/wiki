@@ -4,6 +4,8 @@ from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 
 
+#TODO: This can be replaced with models.
+
 def list_entries():
     """
     Returns a list of all names of encyclopedia entries.
