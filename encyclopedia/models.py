@@ -7,4 +7,4 @@ class Topics(models.Model):
     body = models.CharField(max_length=10000)
 
     def __str__(self) -> str:
-        return f"Title: {self.title} - body: {self.body} - id: {self.id}"
+        return f"Title: {self.title} - id: {self.id}"

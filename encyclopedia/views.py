@@ -124,7 +124,7 @@ def displayPage(request, title):
 
 
 def returnHTML(title):
-    #TODO: needs to be fixed for lower case of existing topic.
+    # Returns HTML to display
     entryContents = Topics.objects.get(title=title)
     test = entryContents.body
     if test != None:
@@ -154,8 +154,6 @@ def searchResults(request):
 
         # Do a substring search for queryResult
 
-        #TODO: Does not work if you search in lower case for an existing topic, will not find CSS
-
         search = Topics.objects.values_list('title', flat=True)
         searchList = list(search)
 
@@ -164,9 +162,14 @@ def searchResults(request):
        # If query is in searchList, then go to the page directly at this point.
         # otherwise continue.
         if query.lower() in lowerSearchList:
+            # This gets the index.
+            for i in lowerSearchList:
+                if i == query.lower():
+                    indexPosition = lowerSearchList.index(i)
+                    titleDisplay = searchList[indexPosition]
+                    print(titleDisplay)
 
-            titleDisplay = query.lower()
-            htmlContent = returnHTML(query)
+            htmlContent = returnHTML(titleDisplay)
             # render the page since the search was an exact match.
             return render(request, "encyclopedia/existing_entry.html", {"htmlContent": htmlContent, "titleDisplay": titleDisplay}
                           )
