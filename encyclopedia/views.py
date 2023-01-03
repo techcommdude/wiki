@@ -124,7 +124,7 @@ def displayPage(request, title):
 
 
 def returnHTML(title):
-    # This seems to work now.
+    #TODO: needs to be fixed for lower case of existing topic.
     entryContents = Topics.objects.get(title=title)
     test = entryContents.body
     if test != None:
@@ -153,6 +153,8 @@ def searchResults(request):
         query = queryResult['q']
 
         # Do a substring search for queryResult
+
+        #TODO: Does not work if you search in lower case for an existing topic, will not find CSS
 
         search = Topics.objects.values_list('title', flat=True)
         searchList = list(search)
