@@ -108,7 +108,14 @@ def displayPage(request, title):
     if request.method == 'GET':
 
         # this returns the proper title and the HTML to display on the displayPage
+
         htmlContent = returnHTML(title)
+
+        if htmlContent == None:
+
+            messages.error(request, 'No entries found for your search.')
+            return HttpResponseRedirect(reverse("entries:index"))
+
         titleDisplay = returnProperTitle(title)
 
         if htmlContent != None:
@@ -125,7 +132,12 @@ def displayPage(request, title):
 
 def returnHTML(title):
     # Returns HTML to display
-    entryContents = Topics.objects.get(title=title)
+
+    try:
+        entryContents = Topics.objects.get(title=title)
+    except Topics.DoesNotExist:
+        return None
+
     test = entryContents.body
     if test != None:
 
