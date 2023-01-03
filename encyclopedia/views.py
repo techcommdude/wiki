@@ -57,6 +57,19 @@ def newPage(request):
 
             # If the title does not exist.
 
+            #TODO: New page will create a lowercase version of
+            # existing topic.  Need to return the proper uppper case title here.
+
+            try:
+                entryContents = Topics.objects.get(title=new_title)
+            except Topics.DoesNotExist:
+                                # This is an alert for an error.
+                messages.error(
+                    request, 'This topic already exists in the wiki. Please try again.')
+                return render(request, "encyclopedia/error_exists.html", {"existing": True, "new_title": new_title})
+
+
+
             findTitle = Topics.objects.filter(title=new_title)
 
             if not findTitle:
@@ -78,6 +91,8 @@ def newPage(request):
                 return render(request, "encyclopedia/existing_entry.html", {"htmlContent": htmlContent, "titleDisplay": titleDisplay}
 
                               )
+
+            #TODO: never get here.  Need to check the titles in lower  Can probably get rid of this.
             else:
                 # This is an alert for an error.
                 messages.error(
@@ -165,6 +180,8 @@ def searchResults(request):
         query = queryResult['q']
 
         # Do a substring search for queryResult
+
+        #TODO: Put this elsewhere.  Send the query and return the title to display.
 
         search = Topics.objects.values_list('title', flat=True)
         searchList = list(search)
