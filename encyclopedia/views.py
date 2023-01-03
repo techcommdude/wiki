@@ -54,6 +54,7 @@ def newPage(request):
             #TODO: this works for now and rejects existing titles in the database
             # if titleFromModel.title != new_title:
 
+                #TODO: Is this necessary?
                 new_content = "# " + new_title + " \n" + new_content
                 new_content = new_content.replace('\r', '')
 
@@ -129,12 +130,13 @@ def displayPage(request, title):
 
 
 def returnHTML(title):
-    #TODO: This needs to be updated.
-    entryContents = util.get_entry(title)
-    if entryContents != None:
+    #TODO: This seems to work now.
+    entryContents = Topics.objects.get(title=title)
+    test = entryContents.body
+    if test != None:
 
         markdowner = Markdown()
-        page_html = markdowner.convert(entryContents)
+        page_html = markdowner.convert(test)
 
         return page_html
 
@@ -143,20 +145,28 @@ def returnProperTitle(title):
 
     #TODO: This needs to be updated.
 
-    entryContents = util.get_entry(title)
+    # entryContents = util.get_entry(title)
 
-    if entryContents != None:
+    entryContents = Topics.objects.get(title=title)
 
-        # Do a substring search for queryResult
-        searchList = util.list_entries()
-        lowerSearchList = [item.lower() for item in searchList]
+    if entryContents.title != None:
+
+        return entryContents.title
+
+        #TODO: What else do we need to do here.
+        searchList = Topics.objects.all().filter(title=title)
+
+
+
+
+        # lowerSearchList = [item.lower() for item in searchList]
 
         # This works for the general search of existing topics.
-        indices = [i for i, x in enumerate(lowerSearchList) if x == title]
+        # indices = [i for i, x in enumerate(lowerSearchList) if x == title]
 
         # Finds the title in the entry with the correct case.
-        findInstance = re.findall(title, entryContents, re.IGNORECASE)
-        newTitle = findInstance[0]
+        # findInstance = re.findall(title, entryContents, re.IGNORECASE)
+        # newTitle = findInstance[0]
 
         return newTitle
 
