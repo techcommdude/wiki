@@ -57,16 +57,17 @@ def newPage(request):
 
             # If the title does not exist.
 
-            #TODO: New page will create a lowercase version of
+            #New page will create a lowercase version of
             # existing topic.  Need to return the proper uppper case title here.
 
             try:
                 entryContents = Topics.objects.get(title=new_title)
             except Topics.DoesNotExist:
-                                # This is an alert for an error.
+                title = returnSearchTitle(new_title)
+                print(title)
                 messages.error(
                     request, 'This topic already exists in the wiki. Please try again.')
-                return render(request, "encyclopedia/error_exists.html", {"existing": True, "new_title": new_title})
+                return render(request, "encyclopedia/error_exists.html", {"existing": True, "new_title": title})
 
 
 
@@ -92,12 +93,12 @@ def newPage(request):
 
                               )
 
-            #TODO: never get here.  Need to check the titles in lower  Can probably get rid of this.
-            else:
-                # This is an alert for an error.
-                messages.error(
-                    request, 'This topic already exists in the wiki. Please try again.')
-                return render(request, "encyclopedia/error_exists.html", {"existing": True, "new_title": new_title})
+            #never get here.  Need to check the titles in lower  Can probably get rid of this.
+            # else:
+            #     # This is an alert for an error.
+            #     messages.error(
+            #         request, 'This topic already exists in the wiki. Please try again.')
+            #     return render(request, "encyclopedia/error_exists.html", {"existing": True, "new_title": new_title})
 
 
 def randomPage(request):
@@ -188,8 +189,8 @@ def searchResults(request):
 
         lowerSearchList = [item.lower() for item in searchList]
 
-       # If query is in searchList, then go to the page directly at this point.
-        # otherwise continue.
+    #    # If query is in searchList, then go to the page directly at this point.
+    #     # otherwise continue.
         if query.lower() in lowerSearchList:
             # This gets the index.
             for i in lowerSearchList:
@@ -197,9 +198,13 @@ def searchResults(request):
                     indexPosition = lowerSearchList.index(i)
                     titleDisplay = searchList[indexPosition]
                     print(titleDisplay)
+        titleDisplay = returnSearchTitle(query)
+        if titleDisplay != None:
+            print(titleDisplay)
+
 
             htmlContent = returnHTML(titleDisplay)
-            # render the page since the search was an exact match.
+        # render the page since the search was an exact match.
             return render(request, "encyclopedia/existing_entry.html", {"htmlContent": htmlContent, "titleDisplay": titleDisplay}
                           )
 
@@ -229,6 +234,24 @@ def searchResults(request):
             return render(request, "encyclopedia/searchresults.html", {
                 "results": substringSearchResults
             })
+
+
+def returnSearchTitle (query):
+        search = Topics.objects.values_list('title', flat=True)
+        searchList = list(search)
+
+        lowerSearchList = [item.lower() for item in searchList]
+
+       # If query is in searchList, then go to the page directly at this point.
+        # otherwise continue.
+        if query.lower() in lowerSearchList:
+            # This gets the index.
+            for i in lowerSearchList:
+                if i == query.lower():
+                    indexPosition = lowerSearchList.index(i)
+                    titleDisplay = searchList[indexPosition]
+                    print(titleDisplay)
+                    return titleDisplay
 
 
 def editPage(request, title):
