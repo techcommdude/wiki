@@ -13,20 +13,18 @@ from . import util
 
 def index(request):
 
-    test = Topics.objects.all()
-    if not test:
+    #Flatten the querset to return a single list of tuples.
+    title = Topics.objects.values_list('title', flat=True)
+    if not title:
         print("No results")
     else:
         print("Queryset has results")
 
-
-     #TODO: Need to make a list from the queryset.
-    # test2 = list(test)
-
-    print("blan")
+     #Need to make a list from the queryset.
+    titleEntries = list(title)
 
     return render(request, "encyclopedia/index.html", {
-        "entries": test
+        "entries": titleEntries
 
     })
 
