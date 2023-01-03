@@ -12,9 +12,18 @@ from . import util
 
 
 def index(request):
+
+    test = Topics.objects.values_list('title')
+    print(test)
+
+     #TODO: Need to make a list from the queryset.
+    test2 = list(test)
+
+    print("blan")
+
     return render(request, "encyclopedia/index.html", {
-        "entries": util.list_entries()
-        #TODO: Update above.
+        "entries": test
+
     })
 
 
@@ -153,7 +162,7 @@ def returnProperTitle(title):
 
         return entryContents.title
 
-        #TODO: What else do we need to do here.
+        #TODO: What else do we need to do here?
         searchList = Topics.objects.all().filter(title=title)
 
 
