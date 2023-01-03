@@ -6,12 +6,15 @@ from django.urls import reverse
 from markdown2 import Markdown
 from django import forms
 from django.http import HttpResponse, HttpResponseRedirect
+
+from encyclopedia.models import Topics
 from . import util
 
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
         "entries": util.list_entries()
+        #TODO: Update above.
     })
 
 
@@ -43,14 +46,19 @@ def newPage(request):
             new_title = form.cleaned_data['new_title']
 
             #TODO: Maintain a list of library titles in the model that you can search.
-            if util.get_entry(new_title) == None:
+
+            #If the title does not exist.
+
+            if Topics.objects.filter(title=new_title) != Topics.DoesNotExist:
+
+            #TODO: this works for now and rejects existing titles in the database
+            # if titleFromModel.title != new_title:
 
                 new_content = "# " + new_title + " \n" + new_content
                 new_content = new_content.replace('\r', '')
 
-                #TODO: Save the entry to the database.  A Char field.
-                util.save_entry(new_title, new_content)
-                print("The content has been saved!")
+                newTopic = Topics(title=new_title, body=new_content)
+                newTopic.save()
 
                 htmlContent = returnHTML(new_title)
                 titleDisplay = returnProperTitle(new_title)
@@ -58,8 +66,27 @@ def newPage(request):
                 # Display the new page here after it is created.
                 messages.success(request, 'New page has been created.')
                 return render(request, "encyclopedia/existing_entry.html", {"htmlContent": htmlContent, "titleDisplay": titleDisplay}
+
+
+
+
+            # if util.get_entry(new_title) == None:
+
+            #     new_content = "# " + new_title + " \n" + new_content
+            #     new_content = new_content.replace('\r', '')
+
+            #     #TODO: Save the entry to the database.  A Char field.
+            #     util.save_entry(new_title, new_content)
+            #     print("The content has been saved!")
+
+            #     htmlContent = returnHTML(new_title)
+            #     titleDisplay = returnProperTitle(new_title)
+
+            #     # Display the new page here after it is created.
+            #     messages.success(request, 'New page has been created.')
+            #     return render(request, "encyclopedia/existing_entry.html", {"htmlContent": htmlContent, "titleDisplay": titleDisplay}
                               )
-            else:
+        else:
                 # This is an alert for an error.
                 messages.error(request, 'This topic already exists in the wiki. Please try again.')
                 return render(request, "encyclopedia/error_exists.html", {"existing": True, "new_title": new_title})
@@ -69,7 +96,7 @@ def randomPage(request):
     # Random Page: Clicking “Random Page” in the sidebar should take user to a random encyclopedia entry.
     # Get the list of entries and randomly pick one and display it.
     if request.method == 'GET':
-        titles = util.list_entries()
+        titles = util.list_entries()  #TODO: Update this.
         randomPick = random.choice(titles)
         htmlContent = returnHTML(randomPick)
         titleDisplay = returnProperTitle(randomPick)
@@ -102,7 +129,7 @@ def displayPage(request, title):
 
 
 def returnHTML(title):
-
+    #TODO: This needs to be updated.
     entryContents = util.get_entry(title)
     if entryContents != None:
 
@@ -113,6 +140,8 @@ def returnHTML(title):
 
 
 def returnProperTitle(title):
+
+    #TODO: This needs to be updated.
 
     entryContents = util.get_entry(title)
 
@@ -139,6 +168,7 @@ def searchResults(request):
         query = queryResult['q']
 
         # Do a substring search for queryResult
+        #TODO: This needs to be updated.
         searchList = util.list_entries()
 
         lowerSearchList = [item.lower() for item in searchList]
@@ -226,6 +256,7 @@ def editPage(request, title):
             content = content.replace('\r', '')
 
             # Display the form again or at least display a message.
+            #TODO: This needs to be updated.
             util.save_entry(title, content)
 
             # this returns the proper title and the HTML to display on the displayPage
