@@ -56,16 +56,15 @@ def newPage(request):
             new_content = form.cleaned_data['new_content']
             new_title = form.cleaned_data['new_title']
 
-            # TODO: Maintain a list of library titles in the model that you can search.
+            # Maintain a list of library titles in the model that you can search.
 
             # If the title does not exist.
 
             if Topics.objects.filter(title=new_title) != Topics.DoesNotExist:
 
-                # TODO: this works for now and rejects existing titles in the database
+                # this works for now and rejects existing titles in the database
                 # if titleFromModel.title != new_title:
 
-                # TODO: Is this necessary?
                 new_content = "# " + new_title + " \n" + new_content
                 new_content = new_content.replace('\r', '')
 
@@ -79,24 +78,6 @@ def newPage(request):
                 messages.success(request, 'New page has been created.')
                 return render(request, "encyclopedia/existing_entry.html", {"htmlContent": htmlContent, "titleDisplay": titleDisplay}
 
-
-
-
-                              # if util.get_entry(new_title) == None:
-
-                              #     new_content = "# " + new_title + " \n" + new_content
-                              #     new_content = new_content.replace('\r', '')
-
-                              #     #TODO: Save the entry to the database.  A Char field.
-                              #     util.save_entry(new_title, new_content)
-                              #     print("The content has been saved!")
-
-                              #     htmlContent = returnHTML(new_title)
-                              #     titleDisplay = returnProperTitle(new_title)
-
-                              #     # Display the new page here after it is created.
-                              #     messages.success(request, 'New page has been created.')
-                              #     return render(request, "encyclopedia/existing_entry.html", {"htmlContent": htmlContent, "titleDisplay": titleDisplay}
                               )
         else:
             # This is an alert for an error.
@@ -109,8 +90,10 @@ def randomPage(request):
     # Random Page: Clicking “Random Page” in the sidebar should take user to a random encyclopedia entry.
     # Get the list of entries and randomly pick one and display it.
     if request.method == 'GET':
-        titles = util.list_entries()  # TODO: Update this.
-        randomPick = random.choice(titles)
+        #Update this need to get a list of all the titles.
+        titles = Topics.objects.values_list('title', flat=True)
+        listTitles = list(titles)
+        randomPick = random.choice(listTitles)
         htmlContent = returnHTML(randomPick)
         titleDisplay = returnProperTitle(randomPick)
 
@@ -232,9 +215,10 @@ def searchResults(request):
 
 def editPage(request, title):
 
+    # This is for editing the page.
     if request.method == 'GET':
 
-        # TODO: retrieve from the model here to get the contents.  It retains all of the \n\r characters. Need to do that in the database as well.
+        # Retrieve from the model here to get the contents.  It retains all of the \n\r characters. Need to do that in the database as well.
         entryContents = Topics.objects.get(title=title)
 
         titleNew = entryContents.title
@@ -252,7 +236,7 @@ def editPage(request, title):
             stripString = "# " + titleNew
 
         # prepare the body for inserting into the edit page.
-            titleToInsert = "# " + title
+            # titleToInsert = "# " + title
         # Strips the leading spaces.
             bodyNew.strip()
             t = bodyNew.removeprefix(stripString)
@@ -267,6 +251,7 @@ def editPage(request, title):
             return render(request, "encyclopedia/edit.html", {'form': form, "title": title}
                           )
 
+    # This is for when saving the existing entry with changes or no changes.
     if request.method == 'POST':
 
         form = EditPageForm(request.POST)
@@ -279,8 +264,15 @@ def editPage(request, title):
             content = content.replace('\r', '')
 
             # Display the form again or at least display a message.
-            # TODO: This needs to be updated.
-            util.save_entry(title, content)
+            # Update tthe model with the new values.
+
+            existingTopic = Topics.objects.get(title=title)
+
+            existingTopic.title = title
+            existingTopic.body = content
+            existingTopic.save()
+
+            # util.save_entry(title, content)
 
             # this returns the proper title and the HTML to display on the displayPage
             htmlContent = returnHTML(title)
