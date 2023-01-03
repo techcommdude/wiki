@@ -6,12 +6,7 @@ This project is deployed on Heroku (have patience since the instance is likely s
 
 A screencast of the project can be found here: <a href="https://youtu.be/uve57RZE3SU">https://youtu.be/uve57RZE3SU</a>
 
-You can log in to the app with this account:
-
-* username: **guest**
-* password: **123**
-
-Some of the technologies I used when building the demo app:
+Some of the technologies I used when building the wiki app:
 
 * Visual Studio Code
 * Django web framework
