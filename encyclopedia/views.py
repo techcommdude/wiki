@@ -1,5 +1,4 @@
 import random
-import re
 from django.contrib import messages
 from django.shortcuts import render
 from django.urls import reverse
@@ -8,7 +7,6 @@ from django import forms
 from django.http import HttpResponse, HttpResponseRedirect
 
 from .models import Topics
-from . import util
 
 
 def index(request):
@@ -51,7 +49,6 @@ def newPage(request):
     if request.method == "POST":
 
         form = NewPageForm(request.POST)
-        print("End of errors!")
         if form.is_valid():
             new_content = form.cleaned_data['new_content']
             new_title = form.cleaned_data['new_title']
@@ -60,7 +57,9 @@ def newPage(request):
 
             # If the title does not exist.
 
-            if Topics.objects.filter(title=new_title) != Topics.DoesNotExist:
+            findTitle = Topics.objects.filter(title=new_title)
+
+            if not findTitle:
 
                 # this works for now and rejects existing titles in the database
                 # if titleFromModel.title != new_title:
@@ -79,18 +78,18 @@ def newPage(request):
                 return render(request, "encyclopedia/existing_entry.html", {"htmlContent": htmlContent, "titleDisplay": titleDisplay}
 
                               )
-        else:
-            # This is an alert for an error.
-            messages.error(
-                request, 'This topic already exists in the wiki. Please try again.')
-            return render(request, "encyclopedia/error_exists.html", {"existing": True, "new_title": new_title})
+            else:
+                # This is an alert for an error.
+                messages.error(
+                    request, 'This topic already exists in the wiki. Please try again.')
+                return render(request, "encyclopedia/error_exists.html", {"existing": True, "new_title": new_title})
 
 
 def randomPage(request):
     # Random Page: Clicking “Random Page” in the sidebar should take user to a random encyclopedia entry.
     # Get the list of entries and randomly pick one and display it.
     if request.method == 'GET':
-        #Update this need to get a list of all the titles.
+        # Update this need to get a list of all the titles.
         titles = Topics.objects.values_list('title', flat=True)
         listTitles = list(titles)
         randomPick = random.choice(listTitles)
@@ -125,7 +124,7 @@ def displayPage(request, title):
 
 
 def returnHTML(title):
-    # TODO: This seems to work now.
+    # This seems to work now.
     entryContents = Topics.objects.get(title=title)
     test = entryContents.body
     if test != None:
@@ -138,29 +137,13 @@ def returnHTML(title):
 
 def returnProperTitle(title):
 
-    # TODO: This needs to be updated.
-
-    # entryContents = util.get_entry(title)
+    # this works now.
 
     entryContents = Topics.objects.get(title=title)
 
     if entryContents.title != None:
 
         return entryContents.title
-
-        # TODO: What else do we need to do here?
-        searchList = Topics.objects.all().filter(title=title)
-
-        # lowerSearchList = [item.lower() for item in searchList]
-
-        # This works for the general search of existing topics.
-        # indices = [i for i, x in enumerate(lowerSearchList) if x == title]
-
-        # Finds the title in the entry with the correct case.
-        # findInstance = re.findall(title, entryContents, re.IGNORECASE)
-        # newTitle = findInstance[0]
-
-        return newTitle
 
 
 def searchResults(request):
@@ -170,8 +153,9 @@ def searchResults(request):
         query = queryResult['q']
 
         # Do a substring search for queryResult
-        # TODO: This needs to be updated.
-        searchList = util.list_entries()
+
+        search = Topics.objects.values_list('title', flat=True)
+        searchList = list(search)
 
         lowerSearchList = [item.lower() for item in searchList]
 
@@ -271,8 +255,6 @@ def editPage(request, title):
             existingTopic.title = title
             existingTopic.body = content
             existingTopic.save()
-
-            # util.save_entry(title, content)
 
             # this returns the proper title and the HTML to display on the displayPage
             htmlContent = returnHTML(title)
