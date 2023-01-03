@@ -7,17 +7,21 @@ from markdown2 import Markdown
 from django import forms
 from django.http import HttpResponse, HttpResponseRedirect
 
-from encyclopedia.models import Topics
+from .models import Topics
 from . import util
 
 
 def index(request):
 
-    test = Topics.objects.values_list('title')
-    print(test)
+    test = Topics.objects.all()
+    if not test:
+        print("No results")
+    else:
+        print("Queryset has results")
+
 
      #TODO: Need to make a list from the queryset.
-    test2 = list(test)
+    # test2 = list(test)
 
     print("blan")
 
