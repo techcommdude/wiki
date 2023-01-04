@@ -2,7 +2,6 @@ from django.urls import path
 
 from . import views
 handler404 = 'encyclopedia.views.handler404'
-handler500 = 'encyclopedia.views.handler500'
 
 app_name = "entries"
 
