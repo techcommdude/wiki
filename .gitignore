@@ -6,3 +6,4 @@ wiki\__pycache__
 /encyclopedia/__pycache__
 /wiki/__pycache__
 /.vscode
+/.gitignore
