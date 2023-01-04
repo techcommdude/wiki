@@ -46,6 +46,9 @@ Some of the technologies I used when building the wiki app:
 * **Markdown to HTML Conversion**: On each entry’s page, any Markdown content in the entry file is converted to HTML before being displayed to the user. The python-markdown2 package is used to perform this conversion.
 
 ## Screen capture of the application:
+Home page:
 ![Wiki project](Wiki_page.png)
+Markdown editing for an entry:
 ![Markdown editing](Wiki_page2.png)
+HTML display for an entry:
 ![HTML display](Wiki_page3.png)
