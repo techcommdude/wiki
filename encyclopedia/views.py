@@ -81,9 +81,8 @@ def newPage(request):
                 new_content = "# " + new_title + " \n" + new_content
                 new_content = new_content.replace('\r', '')
 
-                #TODO: Save the entry to the database.  A Char field.
-                util.save_entry(new_title, new_content)
-                print("The content has been saved!")
+                newTopic = Topics(title=new_title, body=new_content)
+                newTopic.save()
 
                 htmlContent = returnHTML(new_title)
                 titleDisplay = returnProperTitle(new_title)
@@ -267,8 +266,12 @@ def editPage(request, title):
     # This is for editing the page.
     if request.method == 'GET':
 
-        #TODO: retrieve from the model here to get the contents.  It retains all of the \n\r characters. Need to do that in the database as well.
-        entryContents = util.get_entry(title)
+        # Retrieve from the model here to get the contents.  It retains all of the \n\r characters. Need to do that in the database as well.
+        entryContents = Topics.objects.get(title=title)
+
+        titleNew = entryContents.title
+        bodyNew = entryContents.body
+        print("blah")
 
         # Trying to display the initial value of the form.
         if entryContents != None:
