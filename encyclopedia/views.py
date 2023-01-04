@@ -158,7 +158,6 @@ def displayPage(request, title):
             return HttpResponseRedirect(reverse("entries:index"))
 
         htmlContent = returnHTML(titleDisplay)
-        # TODO: need to fix when user puts lower case in browser url
 
         if htmlContent == None:
 
@@ -214,8 +213,6 @@ def searchResults(request):
         query = queryResult['q']
 
         # Do a substring search for queryResult
-
-        # TODO: Put this elsewhere.  Send the query and return the title to display.
 
         search = Topics.objects.values_list('title', flat=True)
         searchList = list(search)
