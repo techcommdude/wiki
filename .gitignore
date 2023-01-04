@@ -1,9 +1,8 @@
 # ignore ALL .log files
 *.log
 
-# ignore ALL files in ANY directory named temp
-temp\
 
-\wiki\.vscode
-
-\wiki\encyclopedia\__pycache__
+wiki\__pycache__
+/encyclopedia/__pycache__
+/wiki/__pycache__
+/.vscode
