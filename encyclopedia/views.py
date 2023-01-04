@@ -57,26 +57,21 @@ def newPage(request):
 
             # If the title does not exist.
 
-            #New page will create a lowercase version of
+            # New page will create a lowercase version of
             # existing topic.  Need to return the proper uppper case title here.
 
-            try:
-                entryContents = Topics.objects.get(title=new_title)
-            except Topics.DoesNotExist:
-                title = returnSearchTitle(new_title)
-                print(title)
-                messages.error(
-                    request, 'This topic already exists in the wiki. Please try again.')
-                return render(request, "encyclopedia/error_exists.html", {"existing": True, "new_title": title})
+            # try:
+            #     entryContents = Topics.objects.get(title=new_title)
+            # except Topics.DoesNotExist:
+            #     title = returnSearchTitle(new_title)
+            #     print(title)
+            #     messages.error(
+            #         request, 'This topic already exists in the wiki. Please try again.')
+            #     return render(request, "encyclopedia/error_exists.html", {"existing": True, "new_title": title})
 
+            title = returnSearchTitle(new_title)
 
-
-            findTitle = Topics.objects.filter(title=new_title)
-
-            if not findTitle:
-
-                # this works for now and rejects existing titles in the database
-                # if titleFromModel.title != new_title:
+            if title == None:
 
                 new_content = "# " + new_title + " \n" + new_content
                 new_content = new_content.replace('\r', '')
@@ -92,8 +87,40 @@ def newPage(request):
                 return render(request, "encyclopedia/existing_entry.html", {"htmlContent": htmlContent, "titleDisplay": titleDisplay}
 
                               )
+            else:
 
-            #never get here.  Need to check the titles in lower  Can probably get rid of this.
+
+                #entryContents = Topics.objects.get(title=new_title)
+
+                title = returnSearchTitle(new_title)
+                print(title)
+                messages.error(
+                request, 'This topic already exists in the wiki. Please try again.')
+                return render(request, "encyclopedia/error_exists.html", {"existing": True, "new_title": title})
+
+            # findTitle = Topics.objects.filter(title=new_title)
+
+            # if not findTitle:
+
+            #     # this works for now and rejects existing titles in the database
+            #     # if titleFromModel.title != new_title:
+
+            #     new_content = "# " + new_title + " \n" + new_content
+            #     new_content = new_content.replace('\r', '')
+
+            #     newTopic = Topics(title=new_title, body=new_content)
+            #     newTopic.save()
+
+            #     htmlContent = returnHTML(new_title)
+            #     titleDisplay = returnProperTitle(new_title)
+
+            #     # Display the new page here after it is created.
+            #     messages.success(request, 'New page has been created.')
+            #     return render(request, "encyclopedia/existing_entry.html", {"htmlContent": htmlContent, "titleDisplay": titleDisplay}
+
+            #                   )
+
+            # never get here.  Need to check the titles in lower  Can probably get rid of this.
             # else:
             #     # This is an alert for an error.
             #     messages.error(
@@ -130,9 +157,8 @@ def displayPage(request, title):
             messages.error(request, 'No entries found for your search.')
             return HttpResponseRedirect(reverse("entries:index"))
 
-
         htmlContent = returnHTML(titleDisplay)
-        #TODO: need to fix when user puts lower case in browser url
+        # TODO: need to fix when user puts lower case in browser url
 
         if htmlContent == None:
 
@@ -189,7 +215,7 @@ def searchResults(request):
 
         # Do a substring search for queryResult
 
-        #TODO: Put this elsewhere.  Send the query and return the title to display.
+        # TODO: Put this elsewhere.  Send the query and return the title to display.
 
         search = Topics.objects.values_list('title', flat=True)
         searchList = list(search)
@@ -208,7 +234,6 @@ def searchResults(request):
         titleDisplay = returnSearchTitle(query)
         if titleDisplay != None:
             print(titleDisplay)
-
 
             htmlContent = returnHTML(titleDisplay)
         # render the page since the search was an exact match.
@@ -243,22 +268,22 @@ def searchResults(request):
             })
 
 
-def returnSearchTitle (query):
-        search = Topics.objects.values_list('title', flat=True)
-        searchList = list(search)
+def returnSearchTitle(query):
+    search = Topics.objects.values_list('title', flat=True)
+    searchList = list(search)
 
-        lowerSearchList = [item.lower() for item in searchList]
+    lowerSearchList = [item.lower() for item in searchList]
 
-       # If query is in searchList, then go to the page directly at this point.
-        # otherwise continue.
-        if query.lower() in lowerSearchList:
-            # This gets the index.
-            for i in lowerSearchList:
-                if i == query.lower():
-                    indexPosition = lowerSearchList.index(i)
-                    titleDisplay = searchList[indexPosition]
-                    print(titleDisplay)
-                    return titleDisplay
+   # If query is in searchList, then go to the page directly at this point.
+    # otherwise continue.
+    if query.lower() in lowerSearchList:
+        # This gets the index.
+        for i in lowerSearchList:
+            if i == query.lower():
+                indexPosition = lowerSearchList.index(i)
+                titleDisplay = searchList[indexPosition]
+                print(titleDisplay)
+                return titleDisplay
 
 
 def editPage(request, title):
