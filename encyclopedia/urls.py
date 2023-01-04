@@ -12,7 +12,6 @@ urlpatterns = [
     path("editPage/<str:title>", views.editPage, name="editPage"),
     path("newEntry", views.newPage, name="newPage"),
     path("randomPage", views.randomPage, name="randomPage"),
-    path("searchResults", views.searchResults, name="searchResults")
-
+    path("searchResults", views.searchResults, name="searchResults"),
 
 ]
