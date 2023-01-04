@@ -7,3 +7,4 @@ wiki\__pycache__
 /wiki/__pycache__
 /.vscode
 /.gitignore
+/encyclopedia/migrations/__pycache__
