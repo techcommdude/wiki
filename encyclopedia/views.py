@@ -124,15 +124,22 @@ def displayPage(request, title):
     if request.method == 'GET':
 
         # this returns the proper title and the HTML to display on the displayPage
+        titleDisplay = returnSearchTitle(title)
 
-        htmlContent = returnHTML(title)
+        if titleDisplay == None:
+            messages.error(request, 'No entries found for your search.')
+            return HttpResponseRedirect(reverse("entries:index"))
+
+
+        htmlContent = returnHTML(titleDisplay)
+        #TODO: need to fix when user puts lower case in browser url
 
         if htmlContent == None:
 
             messages.error(request, 'No entries found for your search.')
             return HttpResponseRedirect(reverse("entries:index"))
 
-        titleDisplay = returnProperTitle(title)
+        # titleDisplay = returnProperTitle(title)
 
         if htmlContent != None:
 
