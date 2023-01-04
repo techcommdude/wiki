@@ -47,3 +47,5 @@ Some of the technologies I used when building the wiki app:
 
 ## Screen capture of the application:
 ![Wiki project](Wiki_page.png)
+![Markdown editing](Wiki_page2.png)
+![HTML display](Wiki_page3.png)
