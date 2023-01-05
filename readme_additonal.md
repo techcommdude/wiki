@@ -23,6 +23,10 @@ heroku git:remote -a wiki-markdown-gfarnell
 
 git add .
 
+**Commit the files**
+
+git commit -am "make it better"
+
 **Push the changes to the remote repository on Heroku:**
 
 git push heroku master
