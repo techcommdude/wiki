@@ -4,7 +4,7 @@ This application allows users to create wiki topics/entries in Markdown format a
 
 This project is deployed on Heroku (have patience since the instance is likely sleeping): <a href="https://wiki-markdown-gfarnell.herokuapp.com/">https://wiki-markdown-gfarnell.herokuapp.com/</a>
 
-A screencast of the project can be found here: <a href="https://youtu.be/uve57RZE3SU">https://youtu.be/uve57RZE3SU</a>
+A screencast of the project can be found here: <a href="https://youtu.be/XYzJSfeYuJI">https://youtu.be/XYzJSfeYuJI</a>
 
 Some of the technologies I used when building the wiki app:
 
