@@ -2,7 +2,7 @@
 
 This application allows users to create wiki topics/entries in Markdown format and save the entry in to the Django SQLITE3 database.  When viewing topics, Markdown content is retrieved from the database and displayed in the browser in HTML format.  The __python-markdown2__ package is used to convert the markdown to HTML and vice-versa.
 
-A screencast of the project is available on YouTube:
+A screencast of the project is available on [YouTube](https://www.youtube.com/watch?v=6WfF_JHMtnU):
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=XYzJSfeYuJI
 " target="_blank"><img src="encyclopedia/static/encyclopedia/wiki.gif"
@@ -54,4 +54,5 @@ Some of the technologies I used when building the wiki app:
 ![Markdown editing](Wiki_page2.png)
 ### HTML display for an entry:
 ![HTML display](Wiki_page3.png)
+
 
